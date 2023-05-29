@@ -10,38 +10,45 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Color(0xFF0396FE),
+    primaryContainer = Color(0xFFFFFFFF),
+    secondary = Color(0xFFE1E5F1),
+    tertiary = Color(0xFF45C033),
+
+    surface = Color(0xFFD4EDFF),
+
+    background = Color(0xFFF7F8FD),
+    onBackground = Color(0xFF000000),
+    error = Color(0xFFD0342C),
+    errorContainer = Color(0xFFFFE6E5)
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = Color(0xFF0396FE),
+    primaryContainer = Color(0xFFFFFFFF),
+    secondary = Color(0xFFE1E5F1),
+    tertiary = Color(0xFF45C033),
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    surface = Color(0xFFD4EDFF),
+
+    background = Color(0xFFF7F8FD),
+    onBackground = Color(0xFF000000),
+    error = Color(0xFFD0342C),
+    errorContainer = Color(0xFFFFE6E5)
 )
 
 @Composable
 fun JamuInTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
