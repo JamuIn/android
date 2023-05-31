@@ -1,0 +1,19 @@
+package com.adiluhung.jamuin.route
+
+sealed class Routes(val routes: String) {
+    object Register : Routes("register")
+    object Login : Routes("login")
+    object Dashboard : Routes("dashboard")
+    object Chat : Routes("chat")
+    object Home : Routes("home")
+    object Photo : Routes("photo")
+    object Cart : Routes("cart")
+    object Profile : Routes("profile")
+    object Search : Routes("search")
+    object DetailArticle : Routes("detail article/{id}") {
+        fun createRoute(id: Int) = "detail article/$id"
+    }
+//    object Detail : Routes("detail/{id}") {
+//        fun createRoute(id: Int) = "detail/$id"
+//    }
+}

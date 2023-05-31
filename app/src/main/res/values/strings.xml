@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">JamuIn</string>
+
+    <string name="user_name">Nama Pengguna</string>
+    <string name="email">Email</string>
+    <string name="email_address">Email Address</string>
+    <string name="phone_number">Nomor Handphone</string>
+    <string name="enter">Enter your %1$s</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Lupa Password</string>
+    <string name="address">Alamat</string>
+    <string name="login">Login</string>
+    <string name="register">Registrasi</string>
+    <string name="sign_up">Daftar</string>
+    <string name="sign_in">Masuk</string>
+    <string name="placeholder_search">Cari Jamu Beras Kencur</string>
+    <string name="error">Terdapat Kesalahan</string>
 </resources>

@@ -123,3 +123,10 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
 )
+
+//Button
+val ButtonStyle = TextStyle(
+    fontFamily = Poppins,
+    fontWeight = FontWeight.SemiBold,
+    fontSize = 12.sp
+)
