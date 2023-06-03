@@ -22,7 +22,7 @@ import com.adiluhung.jamuin.ui.theme.SoftGray
 fun SocialAuthentication() {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Text(
-            text = "Masuk dengan Google atau Facebook",
+            text = "Daftar dengan Google atau Facebook",
             style = MaterialTheme.typography.bodySmall.copy(color = LightGray)
         )
     }
