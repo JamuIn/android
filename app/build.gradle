@@ -19,7 +19,7 @@ android {
             useSupportLibrary true
         }
 
-        buildConfigField "String", "BASE_URL", '"https://api.jamuin.com"'
+        buildConfigField "String", "BASE_URL", '"http://35.186.147.244/api/"'
     }
 
     buildTypes {
