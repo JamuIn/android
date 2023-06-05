@@ -10,9 +10,14 @@
     <string name="forgot_password">Lupa Password</string>
     <string name="address">Alamat</string>
     <string name="login">Login</string>
+    <string name="edit_profile">Edit Profil</string>
     <string name="register">Registrasi</string>
     <string name="sign_up">Daftar</string>
+    <string name="back">Kembali</string>
     <string name="sign_in">Masuk</string>
+    <string name="image_profile">Gambar Profile</string>
     <string name="placeholder_search">Cari Jamu Beras Kencur</string>
     <string name="error">Terdapat Kesalahan</string>
+
+    <string name="in_dev">Feature in development</string>
 </resources>
