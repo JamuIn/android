@@ -1,4 +1,4 @@
-package com.adiluhung.jamuin.ui.screen
+package com.adiluhung.jamuin.ui.screen.auth
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

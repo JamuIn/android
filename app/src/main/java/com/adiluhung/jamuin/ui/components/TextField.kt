@@ -15,7 +15,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,16 +25,12 @@ import com.adiluhung.jamuin.ui.theme.SoftGray
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PasswordTextField(placeholder: String) {
-    var text by remember {
-        mutableStateOf(TextFieldValue(""))
-    }
+fun PasswordTextField(password: String, onPasswordChange: (String) -> Unit, placeholder: String) {
+
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     OutlinedTextField(
-        value = text,
-        onValueChange = { value ->
-            text = value
-        },
+        value = password,
+        onValueChange = onPasswordChange,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             containerColor = SoftGray,
             unfocusedBorderColor = SoftGray,
@@ -57,10 +52,10 @@ fun PasswordTextField(placeholder: String) {
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         trailingIcon = {
-            //val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+            // val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
 
             IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                //Icon(imageVector = image, contentDescription = "")
+                // Icon(imageVector = image, contentDescription = "")
             }
         }
     )
@@ -68,15 +63,15 @@ fun PasswordTextField(placeholder: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PrimaryTextField(placeholder: String, keyboardType: KeyboardType = KeyboardType.Text) {
-    var text by remember {
-        mutableStateOf(TextFieldValue(""))
-    }
+fun PrimaryTextField(
+    text: String,
+    onTextChange: (String) -> Unit,
+    placeholder: String,
+    keyboardType: KeyboardType = KeyboardType.Text
+) {
     OutlinedTextField(
         value = text,
-        onValueChange = { value ->
-            text = value
-        },
+        onValueChange = onTextChange,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             containerColor = SoftGray,
             unfocusedBorderColor = SoftGray,
@@ -185,7 +180,7 @@ fun SearchFieldPreview() {
 @Composable
 fun PasswordTextFieldPreview() {
     Column(modifier = Modifier.padding(10.dp)) {
-        PasswordTextField(placeholder = "Kata Sandi")
+        PasswordTextField(password = "", onPasswordChange = {}, placeholder = "Kata Sandi")
     }
 }
 
@@ -193,6 +188,11 @@ fun PasswordTextFieldPreview() {
 @Composable
 fun PrimaryTextFiledPreview() {
     Column(modifier = Modifier.padding(10.dp)) {
-        PrimaryTextField(placeholder = "Test Component", KeyboardType.Text)
+        PrimaryTextField(
+            text = "",
+            onTextChange = {},
+            placeholder = "Test KeyEventDispatcher.Component",
+            KeyboardType.Text
+        )
     }
 }

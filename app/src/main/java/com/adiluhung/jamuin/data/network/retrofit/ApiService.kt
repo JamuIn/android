@@ -9,8 +9,9 @@ import com.adiluhung.jamuin.data.network.responses.JamuResponse
 import com.adiluhung.jamuin.data.network.responses.LogoutResponse
 import com.adiluhung.jamuin.data.network.responses.StoreResponse
 import com.adiluhung.jamuin.data.network.responses.UpdateJamuResponse
-import retrofit2.Response
+import retrofit2.Call
 import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
@@ -52,7 +53,7 @@ interface ApiService {
      * */
     @POST(EndPoints.POST_REGISTER)
     @Headers("Accept: application/json")
-    suspend fun register(
+    fun register(
         @Field("full_name") fullname: String,
         @Field("username") username: String,
         @Field("email") email: String,
@@ -61,43 +62,44 @@ interface ApiService {
         @Field("password_confirmation") passwordConfirmation: String,
         @Field("address") address: String,
         @Field("role") role: String,
-    ): Response<AuthResponse>
+    ): Call<AuthResponse>
 
+    @FormUrlEncoded
     @POST(EndPoints.POST_LOGIN)
     @Headers("Accept: application/json")
-    suspend fun login(
+    fun login(
         @Field("email") email: String,
         @Field("password") password: String,
-    ): Response<AuthResponse>
+    ): Call<AuthResponse>
 
     @POST(EndPoints.POST_LOGOUT)
     @Headers("Accept: application/json")
-    suspend fun logout(
+    fun logout(
         @Header("Authorization") token: String
-    ): Response<LogoutResponse>
+    ): Call<LogoutResponse>
 
     /**
      * JAMU
      * */
     @GET(EndPoints.GET_JAMU)
     @Headers("Accept: application/json")
-    suspend fun getAllJamu(): Response<JamuResponse>
+    fun getAllJamu(): Call<JamuResponse>
 
     @GET(EndPoints.GET_JAMU)
     @Headers("Accept: application/json")
-    suspend fun getJamuByQuery(
+    fun getJamuByQuery(
         @Query("ingredient") ingredient: Int
-    ): Response<JamuResponse>
+    ): Call<JamuResponse>
 
     @GET(EndPoints.GET_DETAIL_JAMU)
     @Headers("Accept: application/json")
-    suspend fun getDetailJamu(
+    fun getDetailJamu(
         @Query("id") id: Int
-    ): Response<JamuResponse>
+    ): Call<JamuResponse>
 
     @POST(EndPoints.POST_JAMU)
     @Headers("Accept: application/json")
-    suspend fun addJamu(
+    fun addJamu(
         @Header("Authorization") token: String,
         @Field("category_id") categoryId: Int,
         @Field("main_ingredient_id") mainIngredientId: Int,
@@ -107,11 +109,11 @@ interface ApiService {
         @Field("steps") steps: String,
         @Field("source") source: String,
         @Field("image") image: String,
-    ): Response<AddJamuResponse>
+    ): Call<AddJamuResponse>
 
     @POST(EndPoints.UPDATE_JAMU)
     @Headers("Accept: application/json")
-    suspend fun updateJamu(
+    fun updateJamu(
         @Header("Authorization") token: String,
         @Query("id") id: Int,
         @Field("category_id") categoryId: Int,
@@ -121,71 +123,71 @@ interface ApiService {
         @Field("steps") steps: String,
         @Field("source") source: String,
         @Field("image") image: String,
-    ): Response<UpdateJamuResponse>
+    ): Call<UpdateJamuResponse>
 
     @POST(EndPoints.DELETE_JAMU)
     @Headers("Accept: application/json")
-    suspend fun deleteJamu(
+    fun deleteJamu(
         @Header("Authorization") token: String,
         @Query("id") id: Int
-    ): Response<UpdateJamuResponse>
+    ): Call<UpdateJamuResponse>
 
     /**
      * INGREDIENTS
      * */
     @GET(EndPoints.GET_INGREDIENTS)
     @Headers("Accept: application/json")
-    suspend fun getAllIngredient(): Response<IngredientResponse>
+    fun getAllIngredient(): Call<IngredientResponse>
 
     @GET(EndPoints.GET_DETAIL_INGREDIENTS)
     @Headers("Accept: application/json")
-    suspend fun getDetailIngredient(
+    fun getDetailIngredient(
         @Query("id") id: Int
-    ): Response<DetailIngredientResponse>
+    ): Call<DetailIngredientResponse>
 
     @POST(EndPoints.POST_INGREDIENTS)
     @Headers("Accept: application/json")
-    suspend fun addIngredient(
+    fun addIngredient(
         @Query("id") id: Int,
         @Field("name") name: String,
         @Field("image") image: String,
-    ): Response<DetailIngredientResponse>
+    ): Call<DetailIngredientResponse>
 
     @POST(EndPoints.UPDATE_INGREDIENTS)
     @Headers("Accept: application/json")
-    suspend fun updateIngredient(
+    fun updateIngredient(
         @Query("id") id: Int,
         @Field("name") name: String,
         @Field("image") image: String,
-    ): Response<DetailIngredientResponse>
+    ): Call<DetailIngredientResponse>
 
     @POST(EndPoints.DELETE_INGREDIENTS)
     @Headers("Accept: application/json")
-    suspend fun deleteIngredient(
+    fun deleteIngredient(
         @Query("id") id: Int,
-    ): Response<UpdateJamuResponse>
+    ): Call<UpdateJamuResponse>
 
     /**
      * STORE
      * */
     @GET(EndPoints.GET_STORE)
     @Headers("Accept: application/json")
-    suspend fun getAllStore(): Response<StoreResponse>
+    fun getAllStore(): Call<StoreResponse>
 
     @GET(EndPoints.GET_DETAIL_STORE)
     @Headers("Accept: application/json")
-    suspend fun getDetailStore(
+    fun getDetailStore(
         @Query("id") id: Int
-    ): Response<DetailStoreResponse>
+    ): Call<DetailStoreResponse>
 
     @POST(EndPoints.POST_STORE)
     @Headers("Accept: application/json")
-    suspend fun addStore(
+    fun addStore(
         @Header("Authorization") token: String,
         @Field("name") name: String,
         @Field("description") description: String,
         @Field("payment_address") paymentAddress: String,
         @Field("image") image: String,
-    ): Response<DetailStoreResponse>
+    ): Call<DetailStoreResponse>
 
 }
