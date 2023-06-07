@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">JamuIn</string>
 
-    <string name="user_name">Nama Pengguna</string>
+    <string name="user_name">Username</string>
     <string name="email">Email</string>
     <string name="email_address">Email Address</string>
     <string name="phone_number">Nomor Handphone</string>
     <string name="enter">Enter your %1$s</string>
     <string name="password">Password</string>
-    <string name="password_confirmation">Password Confirmation</string>
+    <string name="password_confirmation">Konfirmasi Password</string>
     <string name="forgot_password">Lupa Password</string>
     <string name="address">Alamat</string>
     <string name="login">Login</string>
@@ -21,4 +21,5 @@
     <string name="error">Terdapat Kesalahan</string>
 
     <string name="in_dev">Feature in development</string>
+    <string name="fullname">Nama Lengkap</string>
 </resources>

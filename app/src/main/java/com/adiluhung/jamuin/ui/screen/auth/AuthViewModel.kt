@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adiluhung.jamuin.data.local.UserPreferences
-import com.adiluhung.jamuin.data.network.responses.AuthResponse
+import com.adiluhung.jamuin.data.network.responses.LoginResponse
+import com.adiluhung.jamuin.data.network.responses.RegisterResponse
 import com.adiluhung.jamuin.data.network.retrofit.ApiConfig
 import com.adiluhung.jamuin.ui.common.UiState
 import kotlinx.coroutines.launch
@@ -21,10 +22,10 @@ class AuthViewModel(private val pref: UserPreferences) : ViewModel() {
     fun login(email: String, password: String) {
         _uiState.value = UiState.Loading
         val client = ApiConfig.getApiService().login(email, password)
-        client.enqueue(object : Callback<AuthResponse> {
+        client.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(
-                call: Call<AuthResponse>,
-                response: Response<AuthResponse>
+                call: Call<LoginResponse>,
+                response: Response<LoginResponse>
             ) {
                 if (response.isSuccessful) {
                     val data = response.body()
@@ -44,7 +45,7 @@ class AuthViewModel(private val pref: UserPreferences) : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 _uiState.value = UiState.Error(t.message ?: "Unknown error")
             }
         })
@@ -71,10 +72,10 @@ class AuthViewModel(private val pref: UserPreferences) : ViewModel() {
             address,
             role
         )
-        client.enqueue(object : Callback<AuthResponse> {
+        client.enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
-                call: Call<AuthResponse>,
-                response: Response<AuthResponse>
+                call: Call<RegisterResponse>,
+                response: Response<RegisterResponse>
             ) {
                 if (response.isSuccessful) {
                     val data = response.body()
@@ -94,7 +95,7 @@ class AuthViewModel(private val pref: UserPreferences) : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                 _uiState.value = UiState.Error(t.message ?: "Unknown error")
             }
         })

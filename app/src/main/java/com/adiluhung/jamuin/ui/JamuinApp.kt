@@ -12,6 +12,7 @@ import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.screen.HomeScreen
 import com.adiluhung.jamuin.ui.screen.auth.LoginScreen
 import com.adiluhung.jamuin.ui.screen.auth.RegisterScreen
+import com.adiluhung.jamuin.ui.screen.auth.RoleScreen
 
 
 @Composable
@@ -24,6 +25,9 @@ fun JamuinApp(modifier: Modifier = Modifier) {
         }
         composable(Routes.Register.routes) {
             RegisterScreen(navController)
+        }
+        composable(Routes.Role.routes) {
+            RoleScreen(navController)
         }
         composable(Routes.Dashboard.routes) {
             HomeScreen(PaddingValues(16.dp), navController)

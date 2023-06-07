@@ -1,7 +1,14 @@
 package com.adiluhung.jamuin.data.network.responses
 
-data class AuthResponse(
+data class LoginResponse(
     val role: List<String>?,
+    val message: String,
+    val user: User?,
+    val token: String?,
+    val errors: Errors?
+)
+data class RegisterResponse(
+    val role: String,
     val message: String,
     val user: User?,
     val token: String?,

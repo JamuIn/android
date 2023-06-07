@@ -2,6 +2,7 @@ package com.adiluhung.jamuin.route
 
 sealed class Routes(val routes: String) {
     object Register : Routes("register")
+    object Role : Routes("role")
     object Login : Routes("login")
     object Dashboard : Routes("dashboard")
     object Chat : Routes("chat")

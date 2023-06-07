@@ -24,10 +24,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.bundleOf
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
+import com.adiluhung.jamuin.models.RegisterUserModel
 import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.common.UiState
 import com.adiluhung.jamuin.ui.components.*
@@ -35,15 +37,17 @@ import com.adiluhung.jamuin.ui.screen.ViewModelFactory
 import com.adiluhung.jamuin.ui.theme.DodgerBlue
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
 import com.adiluhung.jamuin.ui.theme.LightGray
+import okhttp3.Route
 
 @Composable
 fun RegisterScreen(
     navController: NavController, viewModel: AuthViewModel = viewModel(
         factory = ViewModelFactory(context = LocalContext.current)
-    )
+    ),
 ) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+    var fullname by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -65,7 +69,7 @@ fun RegisterScreen(
 
             is UiState.Success -> {
                 isLoading = false
-                LaunchedEffect(uiState.data){
+                LaunchedEffect(uiState.data) {
                     Toast.makeText(context, uiState.data, Toast.LENGTH_SHORT).show()
                     navController.navigate(Routes.Login.routes)
                 }
@@ -73,7 +77,7 @@ fun RegisterScreen(
 
             is UiState.Error -> {
                 isLoading = false
-                LaunchedEffect(uiState.errorMessage){
+                LaunchedEffect(uiState.errorMessage) {
                     Toast.makeText(context, uiState.errorMessage, Toast.LENGTH_SHORT).show()
                 }
                 Log.d("LoginScreen", uiState.errorMessage)
@@ -86,18 +90,27 @@ fun RegisterScreen(
             .verticalScroll(scrollState)
             .padding(20.dp)
     ) {
-        if(isLoading){
+        if (isLoading) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         }
         GreetingRegister()
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            text = stringResource(id = R.string.fullname),
+            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 15.sp)
+        )
+        Spacer(modifier = Modifier.height(3.dp))
+        PrimaryTextField(placeholder = stringResource(id = R.string.fullname),
+            text = fullname,
+            onTextChange = { fullname = it })
+
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = stringResource(id = R.string.user_name),
             style = MaterialTheme.typography.bodyMedium.copy(fontSize = 15.sp)
         )
         Spacer(modifier = Modifier.height(3.dp))
-        PrimaryTextField(
-            placeholder = stringResource(id = R.string.user_name),
+        PrimaryTextField(placeholder = stringResource(id = R.string.user_name),
             text = username,
             onTextChange = { username = it })
 
@@ -107,26 +120,9 @@ fun RegisterScreen(
             style = MaterialTheme.typography.bodyMedium.copy(fontSize = 15.sp)
         )
         Spacer(modifier = Modifier.height(3.dp))
-        PrimaryTextField(
-            placeholder = stringResource(id = R.string.email),
+        PrimaryTextField(placeholder = stringResource(id = R.string.email),
             text = email,
             onTextChange = { email = it })
-
-        Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            text = stringResource(id = R.string.password),
-            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 15.sp)
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            text = stringResource(id = R.string.address),
-            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 15.sp)
-        )
-        Spacer(modifier = Modifier.height(3.dp))
-        PrimaryTextField(
-            placeholder = stringResource(id = R.string.address),
-            text = address,
-            onTextChange = { address = it })
 
         Spacer(modifier = Modifier.height(15.dp))
         Text(
@@ -134,26 +130,60 @@ fun RegisterScreen(
             style = MaterialTheme.typography.bodyMedium.copy(fontSize = 15.sp)
         )
         Spacer(modifier = Modifier.height(3.dp))
-        PrimaryTextField(
-            placeholder = stringResource(id = R.string.phone_number),
+        PrimaryTextField(placeholder = stringResource(id = R.string.phone_number),
             text = phoneNumber,
             onTextChange = { phoneNumber = it })
 
+
+        Spacer(modifier = Modifier.height(15.dp))
+        Text(
+            text = stringResource(id = R.string.address),
+            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 15.sp)
+        )
         Spacer(modifier = Modifier.height(3.dp))
-        PasswordTextField(
-            placeholder = stringResource(id = R.string.password),
+        PrimaryTextField(placeholder = stringResource(id = R.string.address),
+            text = address,
+            onTextChange = { address = it })
+
+        Spacer(modifier = Modifier.height(3.dp))
+
+        Spacer(modifier = Modifier.height(15.dp))
+        Text(
+            text = stringResource(id = R.string.password),
+            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 15.sp)
+        )
+
+        PasswordTextField(placeholder = stringResource(id = R.string.password),
             password = password,
             onPasswordChange = { password = it })
 
+        Spacer(modifier = Modifier.height(15.dp))
+        Text(
+            text = stringResource(id = R.string.password_confirmation),
+            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 15.sp)
+        )
+
         Spacer(modifier = Modifier.height(3.dp))
-        PasswordTextField(
-            placeholder = stringResource(id = R.string.password_confirmation),
+        PasswordTextField(placeholder = stringResource(id = R.string.password_confirmation),
             password = passwordConfirmation,
             onPasswordChange = { passwordConfirmation = it })
 
+
         Spacer(modifier = Modifier.height(20.dp))
         PrimaryButton(text = stringResource(id = R.string.register), onClick = {
-
+            val data = RegisterUserModel(
+                fullname = fullname,
+                username = username,
+                email = email,
+                password = password,
+                passwordConfirmation = passwordConfirmation,
+                address = address,
+                phoneNumber = phoneNumber
+            )
+            navController.currentBackStackEntry?.savedStateHandle?.apply {
+                set("registerData", data)
+            }
+            navController.navigate(Routes.Role.routes)
         })
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -181,8 +211,7 @@ fun RegisterScreen(
                 Text(
                     text = stringResource(id = R.string.sign_in),
                     style = MaterialTheme.typography.labelMedium.copy(
-                        color = DodgerBlue,
-                        fontWeight = FontWeight.Bold
+                        color = DodgerBlue, fontWeight = FontWeight.Bold
                     )
                 )
             }

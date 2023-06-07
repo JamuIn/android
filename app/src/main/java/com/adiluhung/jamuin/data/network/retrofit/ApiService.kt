@@ -1,12 +1,13 @@
 package com.adiluhung.jamuin.data.network.retrofit
 
 import com.adiluhung.jamuin.data.network.responses.AddJamuResponse
-import com.adiluhung.jamuin.data.network.responses.AuthResponse
+import com.adiluhung.jamuin.data.network.responses.LoginResponse
 import com.adiluhung.jamuin.data.network.responses.DetailIngredientResponse
 import com.adiluhung.jamuin.data.network.responses.DetailStoreResponse
 import com.adiluhung.jamuin.data.network.responses.IngredientResponse
 import com.adiluhung.jamuin.data.network.responses.JamuResponse
 import com.adiluhung.jamuin.data.network.responses.LogoutResponse
+import com.adiluhung.jamuin.data.network.responses.RegisterResponse
 import com.adiluhung.jamuin.data.network.responses.StoreResponse
 import com.adiluhung.jamuin.data.network.responses.UpdateJamuResponse
 import retrofit2.Call
@@ -51,6 +52,7 @@ interface ApiService {
     /**
      * AUTHENTICATION
      * */
+    @FormUrlEncoded
     @POST(EndPoints.POST_REGISTER)
     @Headers("Accept: application/json")
     fun register(
@@ -62,7 +64,7 @@ interface ApiService {
         @Field("password_confirmation") passwordConfirmation: String,
         @Field("address") address: String,
         @Field("role") role: String,
-    ): Call<AuthResponse>
+    ): Call<RegisterResponse>
 
     @FormUrlEncoded
     @POST(EndPoints.POST_LOGIN)
@@ -70,7 +72,7 @@ interface ApiService {
     fun login(
         @Field("email") email: String,
         @Field("password") password: String,
-    ): Call<AuthResponse>
+    ): Call<LoginResponse>
 
     @POST(EndPoints.POST_LOGOUT)
     @Headers("Accept: application/json")
