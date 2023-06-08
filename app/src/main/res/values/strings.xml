@@ -10,6 +10,7 @@
     <string name="password_confirmation">Konfirmasi Password</string>
     <string name="forgot_password">Lupa Password</string>
     <string name="address">Alamat</string>
+    <string name="dummy_addres">Jl. YTTA, RT 01/RW 01 Ciaci, Bojongsari, Semarang, Prov. Jawa Tengah</string>
     <string name="login">Login</string>
     <string name="edit_profile">Edit Profil</string>
     <string name="register">Registrasi</string>
@@ -22,4 +23,14 @@
 
     <string name="in_dev">Feature in development</string>
     <string name="fullname">Nama Lengkap</string>
+    <string name="change_address">Edit Alamat</string>
+    <string name="cart">Keranjang</string>
+    <string name="price_detail">Rincian Harga</string>
+    <string name="sub_total">Sub Total</string>
+    <string name="shipping">Ongkos Kirim</string>
+    <string name="total">Total</string>
+    <string name="checkout">Checkout</string>
+    <string name="payment">Bayar</string>
+
+
 </resources>
