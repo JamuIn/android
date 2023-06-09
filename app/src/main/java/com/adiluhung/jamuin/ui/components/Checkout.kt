@@ -132,14 +132,6 @@ fun BottomCart() {
                 )
             }
         }
-//        Spacer(modifier = Modifier.height(10.dp))
-//        PrimaryButton(text = stringResource(id = R.string.checkout), onClick = {
-//            navController.navigate(Routes.Checkout.routes) {
-//                popUpTo(Routes.Home.routes) {
-//                    inclusive = true
-//                }
-//            }
-//        })
     }
 }
 

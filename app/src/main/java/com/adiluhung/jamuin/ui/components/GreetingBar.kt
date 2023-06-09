@@ -51,7 +51,7 @@ fun GreetingBar(navController: NavController) {
             Icon(
                 modifier = Modifier.width(20.dp),
                 painter = painterResource(id = R.drawable.chat),
-                contentDescription = "Cart"
+                contentDescription = "Chat"
             )
         }
     }

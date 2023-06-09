@@ -82,6 +82,43 @@ fun RecipeArticleCategory() {
 }
 
 @Composable
+fun ArticleIngredientCategory() {
+    Column {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "Bahan-bahan",
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Bold
+                )
+            )
+        }
+    }
+}
+
+@Composable
+fun ArticleStepsCategory() {
+    Column {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "Cara Membuat",
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Bold
+                )
+            )
+        }
+    }
+}
+
+
+@Composable
 fun Price(isFree: Boolean = false, price: String = "0") {
     if (isFree) {
         Text(
@@ -253,6 +290,22 @@ fun TopProductCategoryPreview() {
 fun RecipeArticleCategoryPreview() {
     JamuInTheme {
         RecipeArticleCategory()
+    }
+}
+
+@Preview
+@Composable
+fun ArticleIngredientCategoryPreview() {
+    MaterialTheme {
+        ArticleIngredientCategory()
+    }
+}
+
+@Preview
+@Composable
+fun ArticleStepsCategoryPreview() {
+    MaterialTheme {
+        ArticleStepsCategory()
     }
 }
 

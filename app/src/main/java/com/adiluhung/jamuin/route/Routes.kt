@@ -16,6 +16,7 @@ sealed class Routes(val routes: String) {
     object DetailArticle : Routes("detail article/{id}") {
         fun createRoute(id: Int) = "detail article/$id"
     }
+//    object Favorite : Routes("favorite")
 //    object Detail : Routes("detail/{id}") {
 //        fun createRoute(id: Int) = "detail/$id"
 //    }

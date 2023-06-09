@@ -8,4 +8,5 @@ sealed class NavigationItem(var route: String, var icon: Int, var title: String)
     object Photo : NavigationItem(Routes.Photo.routes, R.drawable.idea, "Photo")
     object Cart : NavigationItem(Routes.Cart.routes, R.drawable.cart_shopping, "Cart")
     object Profile : NavigationItem(Routes.Profile.routes, R.drawable.profile, "Profile")
+    //object Favorite : NavigationItem(Routes.Favorite.routes, R.drawable.love, "favorite")
 }

@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.adiluhung.jamuin.R
@@ -38,3 +39,34 @@ fun Star(rating: String) {
         )
     }
 }
+
+@Composable
+fun ReviewStar(rating: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        repeat(5) {
+            Icon(
+                modifier = Modifier.width(15.dp),
+                painter = painterResource(id = R.drawable.star_icon),
+                contentDescription = "Star",
+                tint = MaxYellow
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+        }
+        Text(
+            text = rating,
+            style = MaterialTheme.typography.labelSmall.copy(
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Medium,
+                color = LightGray,
+                lineHeight = 0.sp
+            )
+        )
+    }
+}
+
+@Preview
+@Composable
+fun ReviewStarPreview() {
+    ReviewStar(rating = "5")
+}
+
