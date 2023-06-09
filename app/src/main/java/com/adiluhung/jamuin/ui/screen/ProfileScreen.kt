@@ -30,7 +30,6 @@ import com.adiluhung.jamuin.data.sources.ProfileItem
 import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.components.PrimaryButton
 import com.adiluhung.jamuin.ui.theme.DodgerBlue
-import com.adiluhung.jamuin.ui.theme.LightGray
 import com.adiluhung.jamuin.ui.theme.NewWhite
 import com.adiluhung.jamuin.ui.theme.RedFree
 
@@ -105,7 +104,6 @@ fun ItemMenuProfile(icon: Int, label: String) {
                     .height(20.dp),
                 painter = painterResource(id = icon),
                 contentDescription = "Icon",
-                tint = LightGray
             )
             Spacer(modifier = Modifier.width(12.dp))
             Text(
