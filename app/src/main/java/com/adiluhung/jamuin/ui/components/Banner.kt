@@ -22,9 +22,9 @@ import com.adiluhung.jamuin.ui.theme.JamuInTheme
 
 @Preview
 @Composable
-fun Banner() {
+fun Banner(modifier: Modifier = Modifier) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(22.dp),
         colors = CardDefaults.cardColors(containerColor = DodgerBlue, contentColor = White)
     ) {

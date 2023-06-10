@@ -227,8 +227,8 @@ fun RecipeArticle(
             .clickable {
                 navController.navigate(Routes.DetailArticle.createRoute(id = 1))
             },
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.4.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        elevation = CardDefaults.cardElevation(2.dp),
+        colors = CardDefaults.cardColors(containerColor = White)
     ) {
         Row(
             modifier = Modifier.padding(10.dp),

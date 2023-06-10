@@ -1,8 +1,17 @@
 package com.adiluhung.jamuin.ui.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -21,23 +30,28 @@ import com.adiluhung.jamuin.ui.theme.JamuInTheme
 import com.adiluhung.jamuin.ui.theme.Transparant
 
 @Composable
-fun GreetingBar(navController: NavController) {
+fun GreetingBar(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    name: String,
+    greeting: String
+) {
     val interactionSource = remember { MutableInteractionSource() }
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column {
             Text(
-                    text = "Halo, Rizky Billar",
+                text = "Halo $name",
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
                     color = DodgerBlue
                 )
             )
             Text(
-                text = "Senang bertemu lagi hari ini \nApa yang kamu cari?",
+                text = greeting,
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Black
             )
@@ -63,8 +77,8 @@ fun GreetingLogin() {
         modifier = Modifier.fillMaxWidth()
     ) {
         Column(
-            //modifier = Modifier.padding(16.dp),
-            //verticalArrangement = Arrangement.spacedBy(0.dp)
+            // modifier = Modifier.padding(16.dp),
+            // verticalArrangement = Arrangement.spacedBy(0.dp)
         ) {
             Text(
                 text = "Masuk Akun",
@@ -88,8 +102,8 @@ fun GreetingRegister() {
         modifier = Modifier.fillMaxWidth()
     ) {
         Column(
-//            modifier = Modifier.padding(16.dp),
-//            verticalArrangement = Arrangement.spacedBy(0.dp)
+            //            modifier = Modifier.padding(16.dp),
+            //            verticalArrangement = Arrangement.spacedBy(0.dp)
         ) {
             Text(
                 text = "Selamat Datang",
@@ -129,12 +143,17 @@ fun GreetingChooseRole() {
         }
     }
 }
+
 @Preview
 @Composable
 fun GreetingBarPreview() {
     JamuInTheme {
         val navController = rememberNavController()
-        GreetingBar(navController = navController)
+        GreetingBar(
+            navController = navController,
+            name = "Rizky Billar",
+            greeting = "Senang bertemu lagi hari ini \n Apa yang kamu cari?"
+        )
     }
 }
 
