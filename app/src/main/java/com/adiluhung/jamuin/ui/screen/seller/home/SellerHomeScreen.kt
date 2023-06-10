@@ -14,7 +14,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.ui.components.Banner
 import com.adiluhung.jamuin.ui.components.GreetingBar
-import com.adiluhung.jamuin.ui.components.JamuDummy
 import com.adiluhung.jamuin.ui.components.RecipeArticle
 import com.adiluhung.jamuin.ui.components.RecipeArticleCategory
 import com.adiluhung.jamuin.ui.components.seller.SellerBottomNavbar
@@ -40,33 +39,27 @@ fun SellerHomeScreen(modifier: Modifier = Modifier, navController: NavController
                 item {
                     RecipeArticle(
                         modifier = Modifier.padding(bottom = 8.dp),
-                        item = JamuDummy(
-                            id = "1",
-                            banner = "",
-                            title = "Jamu Kencur"
-                        ),
+                        id = "1",
+                        banner = "https://example.com/banner.jpg",
+                        title = "Jamu Kencur",
                         navController = navController
                     )
                 }
                 item {
                     RecipeArticle(
                         modifier = Modifier.padding(bottom = 8.dp),
-                        item = JamuDummy(
-                            id = "1",
-                            banner = "",
-                            title = "Jamu Kencur"
-                        ),
+                        id = "1",
+                        banner = "https://example.com/banner.jpg",
+                        title = "Jamu Kencur",
                         navController = navController
                     )
                 }
                 item {
                     RecipeArticle(
                         modifier = Modifier.padding(bottom = 8.dp),
-                        item = JamuDummy(
-                            id = "1",
-                            banner = "",
-                            title = "Jamu Kencur"
-                        ),
+                        id = "1",
+                        banner = "https://example.com/banner.jpg",
+                        title = "Jamu Kencur",
                         navController = navController
                     )
                 }
