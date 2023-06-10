@@ -15,7 +15,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.adiluhung.jamuin.ui.components.ProductCardEditable
+import com.adiluhung.jamuin.models.OrderProduct
+import com.adiluhung.jamuin.ui.components.seller.OrderCard
+import com.adiluhung.jamuin.ui.components.seller.OrderCardDone
 import com.adiluhung.jamuin.ui.components.seller.SellerBottomNavbar
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
 
@@ -23,9 +25,10 @@ import com.adiluhung.jamuin.ui.theme.JamuInTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SellerOrderScreen(modifier: Modifier = Modifier, navController: NavController) {
-    Scaffold(bottomBar = {
-        SellerBottomNavbar(navController = navController)
-    }) { innerPadding ->
+    Scaffold(modifier = modifier,
+        bottomBar = {
+            SellerBottomNavbar(navController = navController)
+        }) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(
@@ -40,42 +43,58 @@ fun SellerOrderScreen(modifier: Modifier = Modifier, navController: NavControlle
                 modifier = Modifier.padding(bottom = 24.dp),
                 text = "Pesanan",
                 style = MaterialTheme.typography.headlineMedium.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
+                    fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary
                 )
             )
 
             Text(
-                text = "Menunggu Konfirmasi", style = MaterialTheme.typography.bodyMedium.copy(
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onBackground
+                modifier = Modifier.padding(bottom = 8.dp),
+                text = "Menunggu Konfirmasi",
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onBackground
                 )
             )
-            ProductCardEditable(
-                modifier = Modifier.padding(bottom = 4.dp),
-                image = "",
-                title = "jamu Beras Kencur",
-                description = "baik untuk ginjal dan hati",
-                mainIngredient = listOf("Jamu"),
-                price = 30000,
-                onClickDeleteButton = { /*TODO*/ }) {
-
-            }
-            ProductCardEditable(
-                modifier = Modifier.padding(bottom = 4.dp),
-                image = "",
-                title = "jamu Beras Kencur",
-                description = "baik untuk ginjal dan hati",
-                mainIngredient = listOf("Jamu"),
-                price = 30000,
-                onClickDeleteButton = { /*TODO*/ }) {
-
-            }
+            OrderCard(
+                customer = "Test", listProduct = listOf(
+                    OrderProduct(
+                        name = "Jamu Beras Kencur",
+                        description = "Baik untuk ginjal dan hati",
+                        price = 30000,
+                        quantity = 2,
+                        image = ""
+                    ), OrderProduct(
+                        name = "Jamu Beras Kencur",
+                        description = "Baik untuk ginjal dan hati",
+                        price = 30000,
+                        quantity = 2,
+                        image = ""
+                    )
+                ), navController = navController
+            )
 
             Text(
-                text = "Menunggu Konfirmasi", style = MaterialTheme.typography.bodyMedium.copy(
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onBackground
+                modifier = Modifier.padding(vertical = 8.dp),
+                text = "Selesai",
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onBackground
+                )
+            )
+
+            OrderCardDone(
+                customer = "test", listProduct = listOf(
+                    OrderProduct(
+                        name = "Jamu Beras Kencur",
+                        description = "Baik untuk ginjal dan hati",
+                        price = 30000,
+                        quantity = 2,
+                        image = ""
+                    ), OrderProduct(
+                        name = "Jamu Beras Kencur",
+                        description = "Baik untuk ginjal dan hati",
+                        price = 30000,
+                        quantity = 2,
+                        image = ""
+                    )
                 )
             )
         }

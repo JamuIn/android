@@ -20,6 +20,7 @@ import com.adiluhung.jamuin.ui.screen.auth.RegisterScreen
 import com.adiluhung.jamuin.ui.screen.auth.RoleScreen
 import com.adiluhung.jamuin.ui.screen.seller.home.SellerHomeScreen
 import com.adiluhung.jamuin.ui.screen.seller.order.SellerOrderScreen
+import com.adiluhung.jamuin.ui.screen.seller.profile.SellerProfileScreen
 import com.adiluhung.jamuin.ui.screen.seller.shop.SellerShopScreen
 
 
@@ -69,6 +70,9 @@ fun JamuinApp(
         }
         composable(Routes.SellerOrder.routes){
             SellerOrderScreen(navController = navController)
+        }
+        composable(Routes.SellerProfile.routes){
+            SellerProfileScreen(navController = navController)
         }
     }
 
