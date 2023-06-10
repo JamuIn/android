@@ -30,6 +30,6 @@ class UserPreferences(private val context: Context) {
 
     companion object {
         private val TOKEN_KEY = stringPreferencesKey("token")
-        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("token")
+        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("user")
     }
 }

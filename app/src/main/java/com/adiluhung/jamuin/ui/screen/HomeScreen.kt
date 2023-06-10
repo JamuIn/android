@@ -41,7 +41,11 @@ fun HomeScreen(
                     modifier = Modifier
                         .padding(16.dp)
                 ) {
-                    GreetingBar(navController = navController)
+                    GreetingBar(
+                        navController = navController,
+                        name = "Rizky Billar",
+                        greeting = "Senang bertemu lagi hari ini \n Apa yang kamu cari?"
+                    )
                     Spacer(modifier = Modifier.height(15.dp))
                     SearchField(
                         placeholder = stringResource(id = R.string.placeholder_search),
