@@ -39,11 +39,11 @@ import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
 import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.common.UiState
-import com.adiluhung.jamuin.ui.components.GreetingLogin
-import com.adiluhung.jamuin.ui.components.PasswordTextField
-import com.adiluhung.jamuin.ui.components.PrimaryButton
-import com.adiluhung.jamuin.ui.components.PrimaryTextField
-import com.adiluhung.jamuin.ui.components.SocialAuthentication
+import com.adiluhung.jamuin.ui.components.customer.GreetingLogin
+import com.adiluhung.jamuin.ui.components.customer.PasswordTextField
+import com.adiluhung.jamuin.ui.components.customer.PrimaryButton
+import com.adiluhung.jamuin.ui.components.customer.PrimaryTextField
+import com.adiluhung.jamuin.ui.components.customer.SocialAuthentication
 import com.adiluhung.jamuin.ui.screen.ViewModelFactory
 import com.adiluhung.jamuin.ui.theme.DodgerBlue
 import com.adiluhung.jamuin.ui.theme.JamuInTheme

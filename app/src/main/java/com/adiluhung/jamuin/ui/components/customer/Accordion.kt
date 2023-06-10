@@ -1,4 +1,4 @@
-package com.adiluhung.jamuin.ui.components
+package com.adiluhung.jamuin.ui.components.customer
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween

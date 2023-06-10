@@ -1,4 +1,4 @@
-package com.adiluhung.jamuin.ui.screen
+package com.adiluhung.jamuin.ui.screen.customer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,9 +14,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
 import com.adiluhung.jamuin.route.Routes
-import com.adiluhung.jamuin.ui.components.PrimaryButton
-import com.adiluhung.jamuin.ui.components.ProductCardAtCart
-import com.adiluhung.jamuin.ui.components.TopBarCheckout
+import com.adiluhung.jamuin.ui.components.customer.PrimaryButton
+import com.adiluhung.jamuin.ui.components.customer.ProductCardAtCart
+import com.adiluhung.jamuin.ui.components.customer.TopBarCheckout
 import com.adiluhung.jamuin.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)

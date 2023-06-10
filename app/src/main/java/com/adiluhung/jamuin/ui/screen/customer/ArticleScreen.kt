@@ -1,4 +1,4 @@
-package com.adiluhung.jamuin.ui.screen
+package com.adiluhung.jamuin.ui.screen.customer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -11,45 +11,35 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.adiluhung.jamuin.ui.components.*
+import com.adiluhung.jamuin.ui.components.customer.ArticleBanner
+import com.adiluhung.jamuin.ui.components.customer.ArticleCard
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
 import com.adiluhung.jamuin.ui.theme.NewWhite
 
 @Composable
-fun DetailScreen(navController: NavController, image: String) {
+fun ArticleScreen(navController: NavController, image: String) {
     Column(
         modifier = Modifier
             .background(color = NewWhite)
             .padding(horizontal = 16.dp)
     ) {
-        DetailBanner(navController = navController, image = image)
+        ArticleBanner(navController = navController, image = image)
         Spacer(modifier = Modifier.height(16.dp))
-        ProductDetailCard(
+        ArticleCard(
             title = "Jamu Beras Kencur",
-            description = "Baik untuk ginjal. Murah loh!",
+            description = "Deskripsi Jamu Beras Kencur",
             mainIngredient = listOf("Jahe", "Temulawak"),
-            price = 30000,
-            modifier = Modifier.padding(vertical = 8.dp)
+            ingredientItem = "1. Bahan 1 \n2. Bahan 2",
+            steps = "1. Langkah1 \n2. Langkah 2"
         )
         Spacer(modifier = Modifier.height(2.dp))
-        SellerCard(navController = navController)
-        Spacer(modifier = Modifier.height(8.dp))
-        Review (
-            review = "Review",
-            star = "2"
-                )
-        Spacer(modifier = Modifier.height(2.dp))
-        ReviewerCard()
-        Spacer(modifier = Modifier.height(6.dp))
-        ReviewerCard()
     }
 }
 
-
-@Preview (showBackground = true)
+@Preview(showBackground = true)
 @Composable
-fun DetailScreenPreview() {
+fun ArticleScreenPreview() {
     JamuInTheme() {
-        DetailScreen(navController = rememberNavController(), image = "sample_image_url")
+        ArticleScreen(navController = rememberNavController(), image = "sample_image_url")
     }
 }

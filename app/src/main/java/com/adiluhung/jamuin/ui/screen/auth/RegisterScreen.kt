@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.os.bundleOf
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -32,12 +31,15 @@ import com.adiluhung.jamuin.R
 import com.adiluhung.jamuin.models.RegisterUserModel
 import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.common.UiState
-import com.adiluhung.jamuin.ui.components.*
+import com.adiluhung.jamuin.ui.components.customer.GreetingRegister
+import com.adiluhung.jamuin.ui.components.customer.PasswordTextField
+import com.adiluhung.jamuin.ui.components.customer.PrimaryButton
+import com.adiluhung.jamuin.ui.components.customer.PrimaryTextField
+import com.adiluhung.jamuin.ui.components.customer.SocialAuthentication
 import com.adiluhung.jamuin.ui.screen.ViewModelFactory
 import com.adiluhung.jamuin.ui.theme.DodgerBlue
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
 import com.adiluhung.jamuin.ui.theme.LightGray
-import okhttp3.Route
 
 @Composable
 fun RegisterScreen(

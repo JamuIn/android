@@ -12,10 +12,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.adiluhung.jamuin.ui.components.Banner
-import com.adiluhung.jamuin.ui.components.GreetingBar
-import com.adiluhung.jamuin.ui.components.RecipeArticle
-import com.adiluhung.jamuin.ui.components.RecipeArticleCategory
+import com.adiluhung.jamuin.ui.components.customer.Banner
+import com.adiluhung.jamuin.ui.components.customer.GreetingBar
+import com.adiluhung.jamuin.ui.components.customer.RecipeArticle
+import com.adiluhung.jamuin.ui.components.customer.RecipeArticleCategory
 import com.adiluhung.jamuin.ui.components.seller.SellerBottomNavbar
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
 

@@ -1,4 +1,4 @@
-package com.adiluhung.jamuin.ui.screen
+package com.adiluhung.jamuin.ui.screen.customer
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -28,7 +28,7 @@ import coil.request.ImageRequest
 import com.adiluhung.jamuin.R
 import com.adiluhung.jamuin.data.sources.ProfileItem
 import com.adiluhung.jamuin.route.Routes
-import com.adiluhung.jamuin.ui.components.PrimaryButton
+import com.adiluhung.jamuin.ui.components.customer.PrimaryButton
 import com.adiluhung.jamuin.ui.theme.DodgerBlue
 import com.adiluhung.jamuin.ui.theme.NewWhite
 import com.adiluhung.jamuin.ui.theme.RedFree

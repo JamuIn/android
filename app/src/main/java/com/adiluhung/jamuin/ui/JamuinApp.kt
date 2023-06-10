@@ -11,9 +11,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.route.Routes
-import com.adiluhung.jamuin.ui.screen.CartScreen
-import com.adiluhung.jamuin.ui.screen.HomeScreen
-import com.adiluhung.jamuin.ui.screen.ProfileScreen
+import com.adiluhung.jamuin.ui.screen.customer.CartScreen
+import com.adiluhung.jamuin.ui.screen.customer.HomeScreen
+import com.adiluhung.jamuin.ui.screen.customer.ProfileScreen
 import com.adiluhung.jamuin.ui.screen.ViewModelFactory
 import com.adiluhung.jamuin.ui.screen.auth.LoginScreen
 import com.adiluhung.jamuin.ui.screen.auth.RegisterScreen

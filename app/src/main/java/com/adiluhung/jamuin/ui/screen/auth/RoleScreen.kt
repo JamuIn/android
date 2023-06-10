@@ -35,7 +35,7 @@ import com.adiluhung.jamuin.R
 import com.adiluhung.jamuin.models.RegisterUserModel
 import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.common.UiState
-import com.adiluhung.jamuin.ui.components.GreetingChooseRole
+import com.adiluhung.jamuin.ui.components.customer.GreetingChooseRole
 import com.adiluhung.jamuin.ui.screen.ViewModelFactory
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
 

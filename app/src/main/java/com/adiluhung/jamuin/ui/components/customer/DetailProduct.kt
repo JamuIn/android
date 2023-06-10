@@ -1,4 +1,4 @@
-package com.adiluhung.jamuin.ui.components
+package com.adiluhung.jamuin.ui.components.customer
 
 import android.annotation.SuppressLint
 import android.util.Log

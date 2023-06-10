@@ -1,4 +1,4 @@
-package com.adiluhung.jamuin.ui.screen
+package com.adiluhung.jamuin.ui.screen.customer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,6 +19,13 @@ import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
 import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.components.*
+import com.adiluhung.jamuin.ui.components.customer.AccordionPreview
+import com.adiluhung.jamuin.ui.components.customer.Address
+import com.adiluhung.jamuin.ui.components.customer.BottomCart
+import com.adiluhung.jamuin.ui.components.customer.PriceDetail
+import com.adiluhung.jamuin.ui.components.customer.PrimaryButton
+import com.adiluhung.jamuin.ui.components.customer.ProductCardWithEntity
+import com.adiluhung.jamuin.ui.components.customer.TopBarCheckout
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
 import com.adiluhung.jamuin.ui.theme.NewWhite
 

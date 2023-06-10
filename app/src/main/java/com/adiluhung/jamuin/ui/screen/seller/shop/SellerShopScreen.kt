@@ -1,6 +1,5 @@
 package com.adiluhung.jamuin.ui.screen.seller.shop
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
-import com.adiluhung.jamuin.ui.components.ProductCardEditable
+import com.adiluhung.jamuin.ui.components.customer.ProductCardEditable
 import com.adiluhung.jamuin.ui.components.seller.SellerBottomNavbar
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
 
