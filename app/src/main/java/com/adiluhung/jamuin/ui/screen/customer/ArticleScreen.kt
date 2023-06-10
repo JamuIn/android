@@ -1,10 +1,7 @@
 package com.adiluhung.jamuin.ui.screen.customer
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,21 +15,28 @@ import com.adiluhung.jamuin.ui.theme.NewWhite
 
 @Composable
 fun ArticleScreen(navController: NavController, image: String) {
-    Column(
-        modifier = Modifier
-            .background(color = NewWhite)
-            .padding(horizontal = 16.dp)
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
-        ArticleBanner(navController = navController, image = image)
-        Spacer(modifier = Modifier.height(16.dp))
-        ArticleCard(
-            title = "Jamu Beras Kencur",
-            description = "Deskripsi Jamu Beras Kencur",
-            mainIngredient = listOf("Jahe", "Temulawak"),
-            ingredientItem = "1. Bahan 1 \n2. Bahan 2",
-            steps = "1. Langkah1 \n2. Langkah 2"
-        )
-        Spacer(modifier = Modifier.height(2.dp))
+        Column(
+            modifier = Modifier
+                .background(color = NewWhite)
+                .padding(horizontal = 16.dp)
+                .fillMaxSize()
+        ) {
+            ArticleBanner(navController = navController, image = image)
+            Spacer(modifier = Modifier.height(16.dp))
+            ArticleCard(
+                title = "Jamu Beras Kencur",
+                description = "Baik untuk ginjal. Murah loh!",
+                mainIngredient = listOf("Jahe", "Temulawak"),
+                ingredientItem = "1. Bahan 1 \n2. Bahan 2",
+                steps = "1. Langkah1 \n2. Langkah 2",
+                isLiked = true,
+                onLikeClicked = {}
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+        }
     }
 }
 

@@ -13,21 +13,20 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
-import com.adiluhung.jamuin.ui.components.*
 import com.adiluhung.jamuin.ui.components.customer.*
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
 import com.adiluhung.jamuin.ui.theme.NewWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScanResultScreen(
+fun PaymentScreen(
     navController: NavController
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopBarCheckout(
-                title = stringResource(id = R.string.scan_result)
+                title = stringResource(id = R.string.Payment_screen)
             )
         },
         content = { paddingValues: PaddingValues ->
@@ -47,30 +46,22 @@ fun ScanResultScreen(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     item {
-                        RecipeArticleCategory()
+                        SendTo()
                     }
                     item {
-                        RecipeArticle(
-                            id = "1",
-                            banner = "https://example.com/banner.jpg",
-                            title = "Jamu Kencur",
-                            navController = navController
+                        PaymentMethodCard()
+                        Spacer(modifier = Modifier.height(16.dp)
                         )
                     }
                     item {
-                        TopProductCategory()
+                        MustPay()
                     }
-                    items(1) { index ->
-                        ProductCardWithRating(
-                            image = "https://cataas.com/cat",
-                            title = "Jamu Beras Kencur",
-                            description = "Baik untuk ginjal. Murah loh!",
-                            mainIngredient = listOf("Jahe", "Temulawak"),
-                            price = 30000,
-                            rating = 4.5,
-                            ratingNum = 25,
-                            openDetailProduct = {}
-                        )
+                    item {
+                        PaymentPriceCard(price = 10000)
+                    }
+                    item {
+                        PaymentProve()
+                        ImagePayment()
                     }
                 }
             }
@@ -78,17 +69,11 @@ fun ScanResultScreen(
     )
 }
 
-
-
-
 @Preview
 @Composable
-fun ScanResultScreenPreview() {
+fun PaymentScreenPreview() {
     JamuInTheme {
-        // Create a NavController instance (for preview purposes)
         val navController = rememberNavController()
-
-        // Call your CartScreen composable with the required parameters
-        ScanResultScreen(navController = navController)
+        PaymentScreen(navController = navController)
     }
 }

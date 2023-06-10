@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -28,7 +27,9 @@ import coil.request.ImageRequest
 import com.adiluhung.jamuin.R
 import com.adiluhung.jamuin.data.sources.ProfileItem
 import com.adiluhung.jamuin.route.Routes
+import com.adiluhung.jamuin.ui.components.customer.BottomNavigationBar
 import com.adiluhung.jamuin.ui.components.customer.PrimaryButton
+import com.adiluhung.jamuin.ui.components.customer.TopBarCheckout
 import com.adiluhung.jamuin.ui.theme.DodgerBlue
 import com.adiluhung.jamuin.ui.theme.NewWhite
 import com.adiluhung.jamuin.ui.theme.RedFree
@@ -36,29 +37,36 @@ import com.adiluhung.jamuin.ui.theme.RedFree
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(navController: NavController) {
-    Scaffold { paddingValues ->
-        val padding = paddingValues
-        LazyColumn(
+    Scaffold(
+        topBar = {
+            TopBarCheckout(
+                title = stringResource(id = R.string.profile)
+            )
+        },
+        bottomBar = {
+            BottomNavigationBar(navController = navController)
+        }
+    ) { paddingValues ->
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = NewWhite)
+                .padding(paddingValues)
         ) {
-            item {
-                Header(navController = navController)
-                Body()
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    TextButton(onClick = { /*TODO*/ }) {
-                        Text(
-                            text = "Log Out",
-                            style = MaterialTheme.typography.bodyMedium.copy(
-                                fontWeight = FontWeight.SemiBold,
-                                color = RedFree
-                            )
+            Header(navController = navController)
+            Body()
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                TextButton(onClick = { /*TODO*/ }) {
+                    Text(
+                        text = "Log Out",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = FontWeight.SemiBold,
+                            color = RedFree
                         )
-                    }
+                    )
                 }
             }
         }
@@ -122,7 +130,7 @@ fun Header(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = White)
+            .background(color = NewWhite)
             .padding(12.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -153,6 +161,14 @@ fun Header(navController: NavController) {
             }
         )
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+fun ProfileScreenPreview() {
+    val navController = rememberNavController()
+    ProfileScreen(navController = navController)
 }
 
 @Preview

@@ -17,14 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
 import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.components.*
-import com.adiluhung.jamuin.ui.components.customer.Banner
-import com.adiluhung.jamuin.ui.components.customer.BottomNavigationBar
-import com.adiluhung.jamuin.ui.components.customer.GreetingBar
-import com.adiluhung.jamuin.ui.components.customer.ProdutCard
-import com.adiluhung.jamuin.ui.components.customer.RecipeArticle
-import com.adiluhung.jamuin.ui.components.customer.RecipeArticleCategory
-import com.adiluhung.jamuin.ui.components.customer.SearchField
-import com.adiluhung.jamuin.ui.components.customer.TopProductCategory
+import com.adiluhung.jamuin.ui.components.customer.*
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
 import com.adiluhung.jamuin.ui.theme.NewWhite
 
@@ -99,9 +92,6 @@ fun HomeScreen(
                         navController = navController
                     )
                 }
-            }
-            item {
-
             }
         }
     }

@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
 import com.adiluhung.jamuin.route.Routes
+import com.adiluhung.jamuin.ui.components.customer.BottomNavigationBar
 import com.adiluhung.jamuin.ui.components.customer.PrimaryButton
 import com.adiluhung.jamuin.ui.components.customer.ProductCardAtCart
 import com.adiluhung.jamuin.ui.components.customer.TopBarCheckout
@@ -72,9 +73,13 @@ fun CartScreen(
                     }
                 )
             }
+        },
+        bottomBar = {
+            BottomNavigationBar(navController = navController)
         }
     )
 }
+
 
 
 

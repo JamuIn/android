@@ -1,5 +1,6 @@
 package com.adiluhung.jamuin.ui.components.customer
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -77,6 +78,8 @@ fun ArticleCard(
     steps: String,
     onClick: () -> Unit = {},
     mainIngredient: List<String>,
+    isLiked: Boolean,
+    onLikeClicked: (Boolean) -> Unit,
     actionLayout: @Composable () -> Unit = {},
 ) {
     Card(
@@ -92,13 +95,16 @@ fun ArticleCard(
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            Row {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            )  {
                 mainIngredient.map {
                     Card(
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.surface,
                             contentColor = MaterialTheme.colorScheme.primary
-                        ), modifier = Modifier.padding(end = 4.dp)
+                        ),
+                        modifier = Modifier.padding(end = 4.dp)
                     ) {
                         Text(
                             text = it,
@@ -107,6 +113,16 @@ fun ArticleCard(
                         )
                     }
                 }
+                Spacer(modifier = Modifier.weight(1f))
+                Image(
+                    painter = painterResource(
+                        id = if (isLiked) R.drawable.love_filled else R.drawable.love
+                    ),
+                    contentDescription = "Favorite",
+                    modifier = Modifier
+                        .size(25.dp)
+                        .clickable { onLikeClicked(!isLiked) }
+                )
             }
             Text(
                 text = title,
@@ -137,7 +153,6 @@ fun ArticleCard(
     }
 }
 
-
 @Composable
 fun ProductDetailCard(
     modifier: Modifier = Modifier,
@@ -145,7 +160,9 @@ fun ProductDetailCard(
     description: String,
     mainIngredient: List<String>,
     ingredientItem: String,
-    steps: String
+    steps: String,
+    isLiked: Boolean,
+    onLikeClicked: (Boolean) -> Unit,
 ) {
     ArticleCard(
         modifier = modifier,
@@ -153,7 +170,9 @@ fun ProductDetailCard(
         description = description,
         mainIngredient = mainIngredient,
         ingredientItem = ingredientItem,
-        steps = steps
+        steps = steps,
+        isLiked = isLiked,
+        onLikeClicked = onLikeClicked
     )
 }
 
@@ -177,7 +196,9 @@ fun ArticleCardPreview() {
             description = "Baik untuk ginjal. Murah loh!",
             mainIngredient = listOf("Jahe", "Temulawak"),
             ingredientItem = "1. Bahan 1 \n2. Bahan 2",
-            steps = "1. Langkah1 \n2. Langkah 2"
+            steps = "1. Langkah1 \n2. Langkah 2",
+            isLiked = true,
+            onLikeClicked = {}
         )
     }
 }

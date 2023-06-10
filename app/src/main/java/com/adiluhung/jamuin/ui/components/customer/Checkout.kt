@@ -196,6 +196,7 @@ fun Address(navController: NavController) {
 }
 
 
+
 @Preview
 @Composable
 fun CheckoutProductPreview() {
@@ -231,7 +232,9 @@ fun PriceDetailPreview() {
 @Preview
 @Composable
 fun BottomCartPreview() {
-    BottomCart()
+    JamuInTheme {
+        BottomCart()
+    }
 }
 
 @Preview
