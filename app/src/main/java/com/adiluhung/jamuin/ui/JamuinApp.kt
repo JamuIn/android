@@ -1,18 +1,17 @@
 package com.adiluhung.jamuin.ui
 
-import androidx.compose.foundation.layout.PaddingValues
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.route.Routes
-import com.adiluhung.jamuin.ui.screen.customer.CartScreen
-import com.adiluhung.jamuin.ui.screen.customer.HomeScreen
+import com.adiluhung.jamuin.ui.screen.customer.cart.CartScreen
+import com.adiluhung.jamuin.ui.screen.customer.home.HomeScreen
 import com.adiluhung.jamuin.ui.screen.customer.ProfileScreen
 import com.adiluhung.jamuin.ui.screen.ViewModelFactory
 import com.adiluhung.jamuin.ui.screen.auth.LoginScreen
@@ -34,11 +33,12 @@ fun JamuinApp(
     val navController = rememberNavController()
 
     val token = viewModel.getLoggedInUser().observeAsState().value
+    Log.d("JamuinApp", "Token: $token")
 
     val startDestination = if (token == null) {
         Routes.Login.routes
     } else {
-        Routes.SellerHome.routes
+        Routes.Home.routes
     }
 
     NavHost(navController, startDestination = startDestination) {
@@ -51,8 +51,11 @@ fun JamuinApp(
         composable(Routes.Role.routes) {
             RoleScreen(navController)
         }
-        composable(Routes.Dashboard.routes) {
-            HomeScreen(PaddingValues(16.dp), navController)
+        composable(Routes.Home.routes) {
+            HomeScreen(navController)
+        }
+        composable(Routes.Photo.routes){
+            // HomeScreen(navController)
         }
         composable(Routes.Cart.routes) {
             CartScreen(navController)

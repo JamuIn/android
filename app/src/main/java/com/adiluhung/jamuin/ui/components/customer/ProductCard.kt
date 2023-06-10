@@ -1,27 +1,51 @@
 package com.adiluhung.jamuin.ui.components.customer
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.adiluhung.jamuin.helper.toRupiah
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
+import com.adiluhung.jamuin.ui.theme.SoftGray
 
 
 @Composable
@@ -31,7 +55,89 @@ fun ProductCardBig(
     title: String,
     description: String,
     onClick: () -> Unit = {},
-    mainIngredient: List<String>,
+    mainIngredient: String,
+    price: Int,
+) {
+    Box(
+        modifier = modifier
+            .clip(shape = RoundedCornerShape(16.dp))
+            .background(color = Color.White)
+            .border(
+                BorderStroke(1.4.dp, SolidColor(SoftGray)),
+                shape = RoundedCornerShape(16.dp)
+            )
+            .padding(14.dp)
+            .widthIn(max = 200.dp)
+    ) {
+        Column {
+            AsyncImage(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(134.dp)
+                    .clip(
+                        shape = RoundedCornerShape(12.dp)
+                    ),
+                model = image,
+                contentDescription = "Product Image",
+                contentScale = ContentScale.Crop,
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    contentColor = MaterialTheme.colorScheme.primary
+                ), modifier = Modifier.padding(end = 4.dp)
+            ) {
+                Text(
+                    text = mainIngredient,
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.padding(4.dp),
+                )
+            }
+            Text(
+                text = title,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.bodyLarge,
+                fontSize = 17.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = price.toRupiah(),
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.tertiary,
+                )
+                Star("5")
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = description,
+                maxLines = 2,
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Normal, color = Color.LightGray
+                )
+            )
+            Seller("Toko Faiz 243")
+        }
+    }
+}
+
+@Composable
+fun ProductCardSmall(
+    modifier: Modifier = Modifier,
+    image: String,
+    title: String,
+    description: String,
+    onClick: () -> Unit = {},
+    mainIngredient: String,
     price: Int,
     actionLayout: @Composable () -> Unit = {},
 ) {
@@ -62,21 +168,17 @@ fun ProductCardBig(
                     .weight(2f)
                     .padding(horizontal = 8.dp)
             ) {
-                Row {
-                    mainIngredient.map {
-                        Card(
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surface,
-                                contentColor = MaterialTheme.colorScheme.primary
-                            ), modifier = Modifier.padding(end = 4.dp)
-                        ) {
-                            Text(
-                                text = it,
-                                style = MaterialTheme.typography.labelSmall,
-                                modifier = Modifier.padding(4.dp),
-                            )
-                        }
-                    }
+                Card(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        contentColor = MaterialTheme.colorScheme.primary
+                    ), modifier = Modifier.padding(end = 4.dp)
+                ) {
+                    Text(
+                        text = mainIngredient,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.padding(4.dp),
+                    )
                 }
                 Text(
                     text = title,
@@ -113,13 +215,13 @@ fun ProductCardWithRating(
     image: String,
     title: String,
     description: String,
-    mainIngredient: List<String>,
+    mainIngredient: String,
     price: Int,
     rating: Double,
     ratingNum: Int,
     openDetailProduct: () -> Unit
 ) {
-    ProductCardBig(
+    ProductCardSmall(
         modifier = modifier,
         image = image,
         title = title,
@@ -144,11 +246,11 @@ fun ProductCardWithEntity(
     image: String,
     title: String,
     description: String,
-    mainIngredient: List<String>,
+    mainIngredient: String,
     price: Int,
     entity: Int
 ) {
-    ProductCardBig(
+    ProductCardSmall(
         modifier = modifier,
         image = image,
         title = title,
@@ -170,12 +272,12 @@ fun ProductCardEditable(
     image: String,
     title: String,
     description: String,
-    mainIngredient: List<String>,
+    mainIngredient: String,
     price: Int,
     onClickDeleteButton: () -> Unit,
     onClickEditButton: () -> Unit
 ) {
-    ProductCardBig(
+    ProductCardSmall(
         modifier = modifier,
         image = image,
         title = title,
@@ -214,12 +316,12 @@ fun ProductCardAtCart(
     image: String,
     title: String,
     description: String,
-    mainIngredient: List<String>,
+    mainIngredient: String,
     price: Int,
-    entity: Int,
+    quantity: Int,
     onClickDeleteButton: () -> Unit,
 ) {
-    ProductCardBig(
+    ProductCardSmall(
         modifier = modifier,
         image = image,
         title = title,
@@ -230,7 +332,7 @@ fun ProductCardAtCart(
 
         Text(
             textAlign = TextAlign.Center,
-            text = "$entity x",
+            text = "$quantity x",
             style = MaterialTheme.typography.bodyLarge
         )
 
@@ -256,11 +358,11 @@ fun ProductCardWithAddReview(
     image: String,
     title: String,
     description: String,
-    mainIngredient: List<String>,
+    mainIngredient: String,
     price: Int,
     onClickButtonReview: () -> Unit,
 ) {
-    ProductCardBig(
+    ProductCardSmall(
         modifier = modifier,
         image = image,
         title = title,
@@ -282,7 +384,7 @@ fun ProductCardWithRatingPreview() {
             image = "https://cataas.com/cat",
             title = "Jamu Beras Kencur",
             description = "Baik untuk ginjal. Murah loh!",
-            mainIngredient = listOf("Jahe", "Temulawak"),
+            mainIngredient = "Jahe",
             price = 30000,
             rating = 4.5,
             ratingNum = 25,
@@ -298,7 +400,7 @@ fun ProductCardWithEntityPreview() {
             image = "https://cataas.com/cat",
             title = "Jamu Beras Kencur",
             description = "Baik untuk ginjal. Murah loh!",
-            mainIngredient = listOf("Jahe", "Temulawak"),
+            mainIngredient = "Jahe",
             price = 30000,
             entity = 2,
         )
@@ -312,7 +414,7 @@ fun ProductCardEditablePreview() {
         ProductCardEditable(image = "https://cataas.com/cat",
             title = "Jamu Beras Kencur",
             description = "Baik untuk ginjal. Murah loh!",
-            mainIngredient = listOf("Jahe", "Temulawak"),
+            mainIngredient = "Jahe",
             price = 30000,
             onClickDeleteButton = {},
             onClickEditButton = {})
@@ -327,9 +429,9 @@ fun ProductCardAtCartPreview() {
             image = "https://cataas.com/cat",
             title = "Jamu Beras Kencur",
             description = "Baik untuk ginjal. Murah loh!",
-            mainIngredient = listOf("Jahe", "Temulawak"),
+            mainIngredient = "Jahe",
             price = 30000,
-            entity = 2,
+            quantity = 2,
             onClickDeleteButton = {},
         )
     }
@@ -342,8 +444,22 @@ fun ProductCardWithAddReviewPreview() {
         ProductCardWithAddReview(image = "https://cataas.com/cat",
             title = "Jamu Beras Kencur",
             description = "Baik untuk ginjal. Murah loh!",
-            mainIngredient = listOf("Jahe", "Temulawak"),
+            mainIngredient = "Jahe",
             price = 30000,
             onClickButtonReview = {})
+    }
+}
+
+@Preview
+@Composable
+fun ProductCardPreview() {
+    JamuInTheme {
+        ProductCardBig(
+            title = "Jamu beras",
+            price = 12000,
+            mainIngredient = "Jahe",
+            image = "",
+            description = "desc"
+        )
     }
 }

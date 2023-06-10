@@ -18,7 +18,7 @@
     <string name="back">Kembali</string>
     <string name="sign_in">Masuk</string>
     <string name="image_profile">Gambar Profile</string>
-    <string name="placeholder_search">Cari Jamu Beras Kencur</string>
+    <string name="placeholder_search">Cari Resep Jamu</string>
     <string name="error">Terdapat Kesalahan</string>
 
     <string name="in_dev">Feature in development</string>

@@ -60,7 +60,7 @@ fun CheckoutScreen(navController: NavController) {
                                 image = "your_image_url",
                                 title = "Item $index",
                                 description = "Item description",
-                                mainIngredient = listOf("Ingredient 1", "Ingredient 2"),
+                                mainIngredient = "Jahe",
                                 price = 100,
                                 entity = 1,
                             )

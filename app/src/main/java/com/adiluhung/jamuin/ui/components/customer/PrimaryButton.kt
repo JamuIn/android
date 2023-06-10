@@ -24,7 +24,7 @@ fun PrimaryButton(modifier: Modifier = Modifier, text: String, onClick: () -> Un
     Button(
         modifier = modifier
             .fillMaxWidth()
-            .height(63.dp),
+            .height(50.dp),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = DodgerBlue),
         shape = Shapes.medium,
@@ -32,7 +32,7 @@ fun PrimaryButton(modifier: Modifier = Modifier, text: String, onClick: () -> Un
     ) {
         Text(
             text = text,
-            style = ButtonStyle.copy(color = White, fontSize = 19.sp)
+            style = ButtonStyle.copy(color = White, fontSize = 16.sp)
         )
     }
 }

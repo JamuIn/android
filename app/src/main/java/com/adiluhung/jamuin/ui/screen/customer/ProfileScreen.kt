@@ -145,11 +145,11 @@ fun Header(navController: NavController) {
         PrimaryButton(
             text = stringResource(id = R.string.edit_profile),
             onClick = {
-                navController.navigate(Routes.Dashboard.routes) {
-                    popUpTo(Routes.Login.routes) {
-                        inclusive = true
-                    }
-                }
+                // navController.navigate(Routes.Home.routes) {
+                //     popUpTo(Routes.Login.routes) {
+                //         inclusive = true
+                //     }
+                // }
             }
         )
     }

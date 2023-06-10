@@ -1,15 +1,18 @@
 package com.adiluhung.jamuin.data.network.retrofit
 
 import com.adiluhung.jamuin.data.network.responses.AddJamuResponse
+import com.adiluhung.jamuin.data.network.responses.CartResponse
 import com.adiluhung.jamuin.data.network.responses.LoginResponse
 import com.adiluhung.jamuin.data.network.responses.DetailIngredientResponse
 import com.adiluhung.jamuin.data.network.responses.DetailStoreResponse
 import com.adiluhung.jamuin.data.network.responses.IngredientResponse
 import com.adiluhung.jamuin.data.network.responses.JamuResponse
 import com.adiluhung.jamuin.data.network.responses.LogoutResponse
+import com.adiluhung.jamuin.data.network.responses.ProductResponse
 import com.adiluhung.jamuin.data.network.responses.RegisterResponse
 import com.adiluhung.jamuin.data.network.responses.StoreResponse
 import com.adiluhung.jamuin.data.network.responses.UpdateJamuResponse
+import com.adiluhung.jamuin.data.network.responses.UserResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -26,6 +29,11 @@ interface ApiService {
         const val POST_REGISTER = "register"
         const val POST_LOGIN = "login"
         const val POST_LOGOUT = "logout"
+
+        // USER
+        const val GET_USER_BY_TOKEN = "user"
+        const val UPDATE_USER = "user/{id}"
+        const val DELETE_USER = "users/{id}"
 
         // JAMU
         const val GET_JAMU = "jamu"
@@ -47,6 +55,12 @@ interface ApiService {
         const val POST_STORE = "store"
         const val UPDATE_STORE = "store/{id}"
         const val DELETE_STORE = "store/{id}"
+
+        // PRODUCT
+        const val GET_PRODUCT = "products"
+
+        // CART
+        const val GET_USER_CART = "user/{id}/carts"
     }
 
     /**
@@ -79,6 +93,15 @@ interface ApiService {
     fun logout(
         @Header("Authorization") token: String
     ): Call<LogoutResponse>
+
+    /**
+     * USER
+     * */
+    @GET(EndPoints.GET_USER_BY_TOKEN)
+    @Headers("Accept: application/json")
+    fun getUserByToken(
+        @Header("Authorization") token: String,
+    ): Call<UserResponse>
 
     /**
      * JAMU
@@ -191,5 +214,21 @@ interface ApiService {
         @Field("payment_address") paymentAddress: String,
         @Field("image") image: String,
     ): Call<DetailStoreResponse>
+
+    /**
+     * PRODUCTS
+     * */
+    @GET(EndPoints.GET_PRODUCT)
+    fun getAllProduct(): Call<ProductResponse>
+
+    /**
+     * CART
+     * */
+    @GET(EndPoints.GET_USER_CART)
+    @Headers("Accept: application/json")
+    fun getUserCart(
+        @Header("Authorization") token: String,
+        @Query("id") id: Int
+    ): Call<CartResponse>
 
 }

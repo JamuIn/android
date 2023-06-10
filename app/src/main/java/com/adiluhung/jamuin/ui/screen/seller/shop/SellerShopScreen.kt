@@ -164,7 +164,7 @@ fun SellerShopScreen(modifier: Modifier = Modifier, navController: NavController
                 image = "",
                 title = "jamu Beras Kencur",
                 description = "baik untuk ginjal dan hati",
-                mainIngredient = listOf("Jamu"),
+                mainIngredient = "Jahe",
                 price = 30000,
                 onClickDeleteButton = { /*TODO*/ }) {
 
@@ -174,7 +174,7 @@ fun SellerShopScreen(modifier: Modifier = Modifier, navController: NavController
                 image = "",
                 title = "jamu Beras Kencur",
                 description = "baik untuk ginjal dan hati",
-                mainIngredient = listOf("Jamu"),
+                mainIngredient = "Jahe",
                 price = 30000,
                 onClickDeleteButton = { /*TODO*/ }) {
 

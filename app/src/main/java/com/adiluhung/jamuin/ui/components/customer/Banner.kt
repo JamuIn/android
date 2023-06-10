@@ -25,7 +25,7 @@ import com.adiluhung.jamuin.ui.theme.JamuInTheme
 fun Banner(modifier: Modifier = Modifier) {
     Card(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(22.dp),
+        shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = DodgerBlue, contentColor = White)
     ) {
         Box(modifier = Modifier.size(width = 800.dp, height = 150.dp)) {

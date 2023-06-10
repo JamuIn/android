@@ -33,9 +33,11 @@ fun SellerBottomNavbar(navController: NavController) {
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    Log.d("SellerBottomNavbar", "currentRoute: $currentRoute")
 
-    NavigationBar(containerColor = White, contentColor = MaterialTheme.colorScheme.primary) {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.primary
+    ) {
         navItems.forEach { item ->
             NavigationBarItem(
                 selected = currentRoute == item.route,
@@ -54,8 +56,8 @@ fun SellerBottomNavbar(navController: NavController) {
                 icon = {
                     Icon(
                         modifier = Modifier
-                            .width(24.dp)
-                            .height(24.dp),
+                            .width(28.dp)
+                            .height(28.dp),
                         painter = painterResource(id = item.icon),
                         contentDescription = item.title
                     )

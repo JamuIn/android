@@ -4,9 +4,25 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForwardIos
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,7 +33,6 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,7 +42,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.adiluhung.jamuin.R
 import com.adiluhung.jamuin.helper.toRupiah
 import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
@@ -48,10 +62,19 @@ fun TopProductCategory() {
                     fontWeight = FontWeight.Bold
                 )
             )
-            Icon(
-                painter = painterResource(id = R.drawable.more_icon),
-                contentDescription = "lainnya"
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "Lainnya", style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp
+                    )
+                )
+                Icon(
+                    modifier = Modifier.size(12.dp),
+                    imageVector = Icons.Default.ArrowForwardIos,
+                    contentDescription = "Lainnya"
+                )
+            }
         }
         Spacer(modifier = Modifier.height(6.dp))
     }
@@ -66,15 +89,24 @@ fun RecipeArticleCategory() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Artikel Resep",
+                text = "Resep Untuk Anda",
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.Bold
                 )
             )
-            Icon(
-                painter = painterResource(id = R.drawable.more_icon),
-                contentDescription = "lainnya"
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "Lainnya", style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp
+                    )
+                )
+                Icon(
+                    modifier = Modifier.size(12.dp),
+                    imageVector = Icons.Default.ArrowForwardIos,
+                    contentDescription = "Lainnya"
+                )
+            }
         }
         Spacer(modifier = Modifier.height(6.dp))
     }
@@ -140,155 +172,16 @@ fun Price(isFree: Boolean = false, price: String = "0") {
     }
 }
 
-@Composable
-fun ProdutCard(
-    modifier: Modifier = Modifier,
-    image: String,
-    title: String,
-    description: String,
-    onClick: () -> Unit = {},
-    mainIngredient: String,
-    price: Int,
-    actionLayout: @Composable () -> Unit = {},
-) {
-    Box(
-        modifier = modifier
-            .clip(shape = RoundedCornerShape(16.dp))
-            .background(color = White)
-            .border(BorderStroke(1.4.dp, SolidColor(SoftGray)), shape = RoundedCornerShape(16.dp))
-            .padding(14.dp)
-    ) {
-        Column {
-            AsyncImage(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(134.dp)
-                    .clip(
-                        shape = RoundedCornerShape(12.dp)
-                    ),
-                model = image,
-                contentDescription = "Product Image",
-                contentScale = ContentScale.Crop,
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyLarge,
-                fontSize = 17.sp,
-                fontWeight = FontWeight.SemiBold
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = price.toRupiah(),
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.tertiary,
-                )
-                Star("5")
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = description,
-                maxLines = 2,
-                style = MaterialTheme.typography.bodySmall.copy(
-                    fontWeight = FontWeight.Normal, color = Color.LightGray
-                )
-            )
-            Seller("Toko Faiz 243")
-        }
-    }
-}
-
-//data class JamuDummy(
+// data class JamuDummy(
 //    val id: String,
 //    val banner: String,
 //    val title: String,
 //)
 //
-//data class SellerName(
+// data class SellerName(
 //    val Name: String
 //)
 
-@Composable
-fun RecipeArticle(
-    modifier: Modifier = Modifier,
-    id: String,
-    banner: String,
-    title: String,
-    navController: NavController
-) {
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable {
-                navController.navigate(Routes.DetailArticle.createRoute(id = id.toInt()))
-            },
-        elevation = CardDefaults.cardElevation(2.dp),
-        colors = CardDefaults.cardColors(containerColor = White)
-    ) {
-        Row(
-            modifier = Modifier.padding(10.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(banner)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = title,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .width(64.dp)
-                    .height(64.dp)
-                    .clip(shape = RoundedCornerShape(12.dp))
-            )
-            Spacer(modifier = Modifier.width(15.dp))
-            Column {
-                Text(
-                    text = title.capitalize(),
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
-        }
-    }
-}
-
-
-
-@Preview
-@Composable
-fun RecipeArticlePreview() {
-    val navController = rememberNavController()
-    JamuInTheme {
-        RecipeArticle(
-            id = "1",
-            banner = "https://example.com/banner.jpg",
-            title = "Jamu Kencur",
-            navController = navController
-        )
-    }
-}
-
-@Preview
-@Composable
-fun ProductCardPreview() {
-    JamuInTheme {
-        ProdutCard(
-            title = "Jamu beras",
-            price = 12000,
-            mainIngredient = "Jahe",
-            image = "",
-            description = "desc"
-        )
-    }
-}
 
 @Preview
 @Composable
@@ -327,7 +220,7 @@ fun ArticleStepsCategoryPreview() {
 fun PricePreview() {
     MaterialTheme {
         Price(isFree = true)
-        //Price(isFree = false, "128.000"
+        // Price(isFree = false, "128.000"
     }
 }
 

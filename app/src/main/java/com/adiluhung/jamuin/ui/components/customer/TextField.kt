@@ -4,6 +4,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.RemoveRedEye
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -55,7 +60,15 @@ fun PasswordTextField(password: String, onPasswordChange: (String) -> Unit, plac
             // val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
 
             IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                // Icon(imageVector = image, contentDescription = "")
+                Icon(
+                    imageVector =
+                    if (passwordVisible) {
+                        Icons.Default.VisibilityOff
+                    }else{
+                        Icons.Default.Visibility
+                    },
+                    contentDescription = "Password Visibility",
+                )
             }
         }
     )

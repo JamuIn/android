@@ -15,7 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
 import com.adiluhung.jamuin.ui.components.*
 import com.adiluhung.jamuin.ui.components.customer.ProductCardWithRating
-import com.adiluhung.jamuin.ui.components.customer.RecipeArticle
+import com.adiluhung.jamuin.ui.components.customer.RecipeCard
 import com.adiluhung.jamuin.ui.components.customer.RecipeArticleCategory
 import com.adiluhung.jamuin.ui.components.customer.TopBarCheckout
 import com.adiluhung.jamuin.ui.components.customer.TopProductCategory
@@ -54,10 +54,11 @@ fun ScanResultScreen(
                         RecipeArticleCategory()
                     }
                     item {
-                        RecipeArticle(
-                            id = "1",
-                            banner = "https://example.com/banner.jpg",
+                        RecipeCard(
+                            id = 1,
+                            image = "https://example.com/banner.jpg",
                             title = "Jamu Kencur",
+                            description = "Baik untuk ginjal. Murah loh!",
                             navController = navController
                         )
                     }
@@ -69,7 +70,7 @@ fun ScanResultScreen(
                             image = "https://cataas.com/cat",
                             title = "Jamu Beras Kencur",
                             description = "Baik untuk ginjal. Murah loh!",
-                            mainIngredient = listOf("Jahe", "Temulawak"),
+                            mainIngredient = "Jahe",
                             price = 30000,
                             rating = 4.5,
                             ratingNum = 25,

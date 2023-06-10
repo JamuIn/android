@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class JamuResponse(
 
 	@field:SerializedName("data")
-	val data: List<JamuItem?>? = null,
+	val data: List<JamuItem>,
 )
 
 data class AddJamuResponse(

@@ -30,7 +30,7 @@ class AuthViewModel(private val pref: UserPreferences) : ViewModel() {
                 if (response.isSuccessful) {
                     val data = response.body()
                     if (data != null) {
-                        _uiState.value = UiState.Success(data.message)
+                        _uiState.value = UiState.Success(data.role?.get(0))
 
                         viewModelScope.launch {
                             if(data.token != null) {
@@ -81,12 +81,6 @@ class AuthViewModel(private val pref: UserPreferences) : ViewModel() {
                     val data = response.body()
                     if (data != null) {
                         _uiState.value = UiState.Success(data.message)
-
-                        viewModelScope.launch {
-                            if(data.token != null) {
-                                pref.saveUserToken(data.token)
-                            }
-                        }
                     } else {
                         _uiState.value = UiState.Error("Data is null")
                     }

@@ -75,8 +75,17 @@ fun LoginScreen(
 
             is UiState.Success -> {
                 isLoading = false
-                navController.navigate(Routes.Dashboard.routes) {
-                    popUpTo(Routes.Login.routes) { inclusive = true }
+
+                if(uiState.data == "customer"){
+                    navController.navigate(Routes.Home.routes) {
+                        popUpTo(Routes.Login.routes) { inclusive = true }
+                    }
+                } else if(uiState.data == "seller"){
+                    navController.navigate(Routes.SellerHome.routes) {
+                        popUpTo(Routes.Login.routes) { inclusive = true }
+                    }
+                }else{
+                    Toast.makeText(context, "Unknown user type", Toast.LENGTH_SHORT).show()
                 }
             }
 
