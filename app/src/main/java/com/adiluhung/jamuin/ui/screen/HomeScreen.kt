@@ -81,11 +81,9 @@ fun HomeScreen(
                     RecipeArticleCategory()
                     Spacer(modifier = Modifier.padding(start = 16.dp, end = 0.dp))
                     RecipeArticle(
-                        item = JamuDummy(
-                            id = "1",
-                            banner = "",
-                            title = "Jamu Kencur"
-                        ),
+                        id = "1",
+                        banner = "https://example.com/banner.jpg",
+                        title = "Jamu Kencur",
                         navController = navController
                     )
                 }

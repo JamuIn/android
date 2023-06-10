@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.adiluhung.jamuin.ui.JamuinApp
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
@@ -30,7 +29,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview(showBackground = true, device = Devices.PIXEL_4)
+@Preview(showBackground = true)
 @Composable
 fun JamuinAppPreview() {
     JamuInTheme {

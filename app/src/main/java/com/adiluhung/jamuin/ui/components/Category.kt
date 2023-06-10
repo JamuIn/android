@@ -57,7 +57,6 @@ fun TopProductCategory() {
     }
 }
 
-
 @Composable
 fun RecipeArticleCategory() {
     Column {
@@ -205,27 +204,29 @@ fun ProdutCard(
     }
 }
 
-data class JamuDummy(
-    val id: String,
-    val banner: String,
-    val title: String,
-)
-
-data class SellerName(
-    val Name: String
-)
+//data class JamuDummy(
+//    val id: String,
+//    val banner: String,
+//    val title: String,
+//)
+//
+//data class SellerName(
+//    val Name: String
+//)
 
 @Composable
 fun RecipeArticle(
     modifier: Modifier = Modifier,
-    item: JamuDummy,
+    id: String,
+    banner: String,
+    title: String,
     navController: NavController
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .clickable {
-                navController.navigate(Routes.DetailArticle.createRoute(id = 1))
+                navController.navigate(Routes.DetailArticle.createRoute(id = id.toInt()))
             },
         elevation = CardDefaults.cardElevation(defaultElevation = 0.4.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -236,10 +237,10 @@ fun RecipeArticle(
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(item.banner)
+                    .data(banner)
                     .crossfade(true)
                     .build(),
-                contentDescription = item.title,
+                contentDescription = title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .width(64.dp)
@@ -249,33 +250,45 @@ fun RecipeArticle(
             Spacer(modifier = Modifier.width(15.dp))
             Column {
                 Text(
-                    text = item.title.capitalize(),
+                    text = title.capitalize(),
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    style = MaterialTheme.typography.labelMedium.copy(
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
+                    style = MaterialTheme.typography.titleMedium
                 )
             }
         }
     }
 }
 
+
+
 @Preview
 @Composable
 fun RecipeArticlePreview() {
-    val jamu = JamuDummy(
-        id = "1",
-        banner = "",
-        title = "Jamu Kencur",
-    )
-
     val navController = rememberNavController()
-    RecipeArticle(item = jamu, navController = navController)
+    JamuInTheme {
+        RecipeArticle(
+            id = "1",
+            banner = "https://example.com/banner.jpg",
+            title = "Jamu Kencur",
+            navController = navController
+        )
+    }
 }
 
-
+@Preview
+@Composable
+fun ProductCardPreview() {
+    JamuInTheme {
+        ProdutCard(
+            title = "Jamu beras",
+            price = 12000,
+            mainIngredient = "Jahe",
+            image = "",
+            description = "desc"
+        )
+    }
+}
 
 @Preview
 @Composable
@@ -318,16 +331,3 @@ fun PricePreview() {
     }
 }
 
-@Preview
-@Composable
-fun ProductCardPreview() {
-    JamuInTheme {
-        ProdutCard(
-            title = "Jamu beras",
-            price = 12000,
-            mainIngredient = "Jahe",
-            image = "",
-            description = "desc"
-        )
-    }
-}
