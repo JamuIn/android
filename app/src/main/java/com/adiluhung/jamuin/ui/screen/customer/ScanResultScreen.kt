@@ -59,7 +59,8 @@ fun ScanResultScreen(
                             image = "https://example.com/banner.jpg",
                             title = "Jamu Kencur",
                             description = "Baik untuk ginjal. Murah loh!",
-                            navController = navController
+                            navController = navController,
+                            mainIngredient = "Kencur"
                         )
                     }
                     item {

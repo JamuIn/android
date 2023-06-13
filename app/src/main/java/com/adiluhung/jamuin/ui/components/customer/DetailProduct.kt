@@ -2,20 +2,18 @@ package com.adiluhung.jamuin.ui.components.customer
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
@@ -42,18 +40,18 @@ import com.adiluhung.jamuin.ui.theme.JamuInTheme
 import com.adiluhung.jamuin.ui.theme.NewGreen
 
 @Composable
-fun DetailBanner(navController: NavController, image: String) {
+fun DetailBanner(navController: NavController, image: String?) {
     Column {
         Box(modifier = Modifier.height(300.dp)) {
             AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(image)
-                    .crossfade(true).build(),
+                model = ImageRequest.Builder(LocalContext.current).data(image).crossfade(true)
+                    .build(),
                 contentDescription = stringResource(id = R.string.image_profile),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(300.dp)
+                    .clip(RoundedCornerShape(0.dp, 0.dp, 16.dp, 16.dp))
             )
 
             Row(
@@ -66,10 +64,8 @@ fun DetailBanner(navController: NavController, image: String) {
                 Button(
                     onClick = {
                         navController.popBackStack()
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = White,
-                        contentColor = Dark
+                    }, colors = ButtonDefaults.buttonColors(
+                        containerColor = White, contentColor = Dark
                     )
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -89,84 +85,47 @@ fun DetailBanner(navController: NavController, image: String) {
 
 @Composable
 fun AddRemoveButton(
-    totalOrder: MutableState<Int>,
+    totalOrder: Int,
     modifier: Modifier = Modifier,
-    isInCart: Boolean = false
+    onAddTotalOrder: () -> Unit,
+    onRemoveTotalOrder: () -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier,
     ) {
-        IconButton(
-            onClick = {
-                if (isInCart) {
-                    if (totalOrder.value > 0) {
-                        Log.e("Clicked", "Dihapus dari keranjang")
-                        totalOrder.value -= 1
-                    }
-                } else {
-                    if (totalOrder.value > 1) {
-                        totalOrder.value -= 1
-                    }
-                }
-            }
-        ) {
-            Card(
-                modifier = Modifier
-                    .size(35.dp),
-                shape = CircleShape,
-            ) {
-                Box(
-                    modifier = Modifier.size(15.dp)
-                ) {
-                    Icon(
-                        modifier = Modifier.align(Alignment.Center),
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Remove Icon",
-                        tint = DodgerBlue
-                    )
-                }
-            }
+        OutlinedIconButton(border = BorderStroke(1.dp, DodgerBlue), onClick = {
+            onRemoveTotalOrder()
+        }) {
+            Icon(
+                modifier = Modifier.fillMaxSize(),
+                imageVector = Icons.Default.Remove,
+                contentDescription = "Remove Icon",
+                tint = DodgerBlue
+            )
         }
 
         Text(
-            text = totalOrder.value.toString(),
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
-            ),
-            modifier = Modifier.padding(horizontal = 16.dp)
+            text = totalOrder.toString(), style = TextStyle(
+                fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Black
+            ), modifier = Modifier.padding(horizontal = 16.dp)
         )
 
-        IconButton(
-            onClick = {
-                totalOrder.value += 1
-            }
-        ) {
-            Card(
-                modifier = Modifier
-                    .size(35.dp),
-                shape = CircleShape,
-            ) {
-                Box(
-                    modifier = Modifier.size(15.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "Add Icon",
-                        tint = DodgerBlue,
-                        modifier = Modifier.align(Alignment.Center)
-                    )
-                }
-            }
+        OutlinedIconButton(border = BorderStroke(1.dp, DodgerBlue), onClick = {
+            onAddTotalOrder()
+        }) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Add Icon",
+                tint = DodgerBlue,
+            )
         }
     }
 }
 
 //@Composable
-//fun AddRemoveButton(
+// fun AddRemoveButton(
 //    totalOrder: MutableState<Int>,
 //    modifier: Modifier = Modifier,
 //    updateOrder: Unit
@@ -178,7 +137,7 @@ fun AddRemoveButton(
 //    ) {
 //        IconButton(
 //            onClick = {
-//                totalOrder.value -= 1
+//                totalOrder -= 1
 //                //Update order directly
 //                updateOrder
 //            }
@@ -202,7 +161,7 @@ fun AddRemoveButton(
 //        }
 //
 //        Text(
-//            text = totalOrder.value.toString(),
+//            text = totalOrder.toString(),
 //            style = TextStyle(
 //                fontSize = 16.sp,
 //                fontWeight = FontWeight.Bold,
@@ -213,7 +172,7 @@ fun AddRemoveButton(
 //
 //        IconButton(
 //            onClick = {
-//                totalOrder.value += 1
+//                totalOrder += 1
 //                //Update order directly
 //                updateOrder
 //            }
@@ -242,25 +201,33 @@ fun AddRemoveButton(
 @Preview
 @Composable
 fun AddRemoveButtonPreview() {
-    val totalOrder = mutableStateOf(0)
-    AddRemoveButton(totalOrder = totalOrder)
+    AddRemoveButton(totalOrder = 0,
+        onAddTotalOrder = {},
+        onRemoveTotalOrder = {})
 }
 
 
 @Composable
-fun PrimaryOutlineButtonRow() {
+fun PrimaryOutlineButtonRow(
+    totalOrder: Int,
+    onAddTotalOrder: () -> Unit,
+    onRemoveTotalOrder: () -> Unit,
+    onAddToCart: () -> Unit,
+) {
     Row(modifier = Modifier.fillMaxWidth()) {
         Spacer(modifier = Modifier.width(5.dp))
         AddRemoveButton(
-            totalOrder = remember { mutableStateOf(0) },
+            totalOrder = totalOrder,
             modifier = Modifier.weight(1f),
-            isInCart = true
+            onAddTotalOrder = onAddTotalOrder,
+            onRemoveTotalOrder = onRemoveTotalOrder
         )
         Spacer(modifier = Modifier.width(5.dp))
-        PrimaryOutlineButton(
-            modifier = Modifier.weight(1f),
+        PrimaryOutlineButton(modifier = Modifier.weight(1f),
             label = stringResource(id = R.string.cart),
-            onClick = {}
+            onClick = {
+                onAddToCart()
+            }
         )
     }
 }
@@ -277,10 +244,12 @@ fun DetailCard(
     modifier: Modifier = Modifier,
     title: String,
     description: String,
-    onClick: () -> Unit = {},
     mainIngredient: List<String>,
     price: Int,
-    actionLayout: @Composable () -> Unit = {},
+    totalOrder: Int,
+    onAddTotalOrder: () -> Unit,
+    onRemoveTotalOrder: () -> Unit,
+    onAddToCart: () -> Unit,
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -288,8 +257,7 @@ fun DetailCard(
         ),
         shape = RoundedCornerShape(16.dp),
         modifier = modifier
-            .fillMaxWidth()
-            .clickable { onClick() },
+            .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(2.dp),
     ) {
         Column(
@@ -328,13 +296,13 @@ fun DetailCard(
                 color = Black,
                 maxLines = 2,
             )
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                actionLayout()
-            }
             Spacer(modifier = Modifier.height(6.dp))
-            PrimaryOutlineButtonRow()
+            PrimaryOutlineButtonRow(
+                totalOrder = totalOrder,
+                onAddTotalOrder = onAddTotalOrder,
+                onRemoveTotalOrder = onRemoveTotalOrder,
+                onAddToCart = onAddToCart
+            )
         }
     }
 }
@@ -346,16 +314,23 @@ fun ProductDetailCard(
     description: String,
     mainIngredient: List<String>,
     price: Int,
+    totalOrder: Int,
+    onAddTotalOrder: () -> Unit = {},
+    onRemoveTotalOrder: () -> Unit = {},
+    onAddToCart: () -> Unit = {},
 ) {
     DetailCard(
         modifier = modifier,
         title = title,
         description = description,
         mainIngredient = mainIngredient,
-        price = price
+        price = price,
+        totalOrder = totalOrder,
+        onAddTotalOrder = onAddTotalOrder,
+        onRemoveTotalOrder = onRemoveTotalOrder,
+        onAddToCart = onAddToCart
     )
 }
-
 
 
 @Preview(showBackground = true)
@@ -369,7 +344,7 @@ fun DetailBannerPreview(
     }
 }
 
-@Preview (showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun ProductDetailCardPreview() {
     JamuInTheme {
@@ -377,7 +352,10 @@ fun ProductDetailCardPreview() {
             title = "Jamu Beras Kencur",
             description = "Baik untuk ginjal. Murah loh!",
             mainIngredient = listOf("Jahe", "Temulawak"),
-            price = 30000
+            price = 30000,
+            totalOrder = 0,
+            onAddTotalOrder = {},
+            onRemoveTotalOrder = {}
         )
     }
 }

@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -37,6 +38,7 @@ fun ArticleBanner(navController: NavController, image: String) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(300.dp)
+                    .clip(RoundedCornerShape(0.dp, 0.dp, 16.dp, 16.dp))
             )
 
             Row(
@@ -76,20 +78,29 @@ fun ArticleCard(
     description: String,
     ingredientItem: String,
     steps: String,
-    onClick: () -> Unit = {},
     mainIngredient: List<String>,
     isLiked: Boolean,
-    onLikeClicked: (Boolean) -> Unit,
-    actionLayout: @Composable () -> Unit = {},
+    onLikeClicked: (Boolean) -> Unit
 ) {
+    val ingrediensArray = ingredientItem
+        .replace("[", "")
+        .replace("]", "")
+        .split(", '")
+        .map { it.trim().removePrefix("'").removeSuffix("'") }
+
+    val stepsArray = steps
+        .replace("[", "")
+        .replace("]", "")
+        .split(", '")
+        .map { it.trim().removePrefix("'").removeSuffix("'") }
+
     Card(
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         ),
         shape = RoundedCornerShape(16.dp),
         modifier = modifier
-            .fillMaxWidth()
-            .clickable { onClick() },
+            .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(2.dp),
     ) {
         Column(
@@ -97,7 +108,7 @@ fun ArticleCard(
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically
-            )  {
+            ) {
                 mainIngredient.map {
                     Card(
                         colors = CardDefaults.cardColors(
@@ -109,7 +120,7 @@ fun ArticleCard(
                         Text(
                             text = it,
                             style = MaterialTheme.typography.labelSmall,
-                            modifier = Modifier.padding(4.dp),
+                            modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
                         )
                     }
                 }
@@ -137,18 +148,23 @@ fun ArticleCard(
             )
             Spacer(modifier = Modifier.height(6.dp))
             ArticleIngredientCategory()
-            Text(
-                text = ingredientItem,
-                style = MaterialTheme.typography.bodySmall,
-                color = Color.Black,
-            )
+
+            ingrediensArray.forEach { item ->
+                Text(
+                    text = "${ingrediensArray.indexOf(item) + 1}. $item",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Black,
+                )
+            }
             Spacer(modifier = Modifier.height(6.dp))
             ArticleStepsCategory()
-            Text(
-                text = steps,
-                style = MaterialTheme.typography.bodySmall,
-                color = Color.Black,
-            )
+            stepsArray.forEach { item ->
+                Text(
+                    text = "${stepsArray.indexOf(item) + 1}. $item",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Black,
+                )
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.adiluhung.jamuin.ui.screen.customer.home
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
@@ -14,12 +15,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
+import com.adiluhung.jamuin.helper.titlecaseFirstChar
 import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.components.*
 import com.adiluhung.jamuin.ui.components.customer.Banner
@@ -39,7 +43,7 @@ import com.adiluhung.jamuin.ui.theme.JamuInTheme
 fun HomeScreen(
     navController: NavController,
     viewModel: HomeViewModel = viewModel(
-        factory = ViewModelFactory(context = LocalContext.current)
+        factory = ViewModelFactory(LocalContext.current)
     )
 ) {
     val name = viewModel.name.observeAsState().value ?: ""
@@ -95,7 +99,8 @@ fun HomeScreen(
                         image = recipe.image,
                         title = recipe.name,
                         description = recipe.description,
-                        navController = navController
+                        navController = navController,
+                        mainIngredient = recipe.mainIngredient.titlecaseFirstChar(),
                     )
                 }
             }
@@ -104,16 +109,21 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(15.dp))
             TopProductCategory()
 
-            LazyRow {
+            LazyRow(modifier = Modifier.padding(bottom = 8.dp)) {
                 items(listProduct.size) { index ->
                     val product = listProduct[index]
                     ProductCardBig(
-                        modifier = Modifier.padding(end = 8.dp),
+                        modifier = Modifier
+                            .padding(end = 8.dp)
+                            .clickable {
+                                navController.navigate(Routes.DetailProduct.createRoute(product.id))
+                            },
                         image = product.image,
                         title = product.name,
                         description = product.description,
                         price = product.price,
-                        mainIngredient = product.mainIngredient,
+                        mainIngredient = product.mainIngredient.titlecaseFirstChar(),
+                        seller = product.seller
                     )
                 }
             }

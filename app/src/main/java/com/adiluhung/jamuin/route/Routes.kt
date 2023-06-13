@@ -10,13 +10,18 @@ sealed class Routes(val routes: String) {
     object Cart : Routes("cart")
     object Profile : Routes("profile")
     object Search : Routes("search")
-    object Checkout : Routes ("checkout")
-    object AddressEdit : Routes ("address edit")
-    object DetailArticle : Routes("detail article/{id}") {
-        fun createRoute(id: Int) = "detail article/$id"
+    object Checkout : Routes("checkout")
+    object EditProfile : Routes("edit_profile")
+    object EditAddress : Routes("edit_address")
+    object DetailArticle : Routes("detail_article/{id}") {
+        fun createRoute(id: Int) = "detail_article/$id"
     }
 
-    //    object Favorite : Routes("favorite")
+    object DetailProduct : Routes("detail_product/{id}") {
+        fun createRoute(id: Int) = "detail_product/$id"
+    }
+    object Favorite : Routes("favorite")
+
     //    object Detail : Routes("detail/{id}") {
     //        fun createRoute(id: Int) = "detail/$id"
     //    }

@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -54,6 +53,7 @@ fun ProductCardBig(
     image: String,
     title: String,
     description: String,
+    seller: String,
     onClick: () -> Unit = {},
     mainIngredient: String,
     price: Int,
@@ -125,7 +125,7 @@ fun ProductCardBig(
                     fontWeight = FontWeight.Normal, color = Color.LightGray
                 )
             )
-            Seller("Toko Faiz 243")
+            Seller(seller)
         }
     }
 }
@@ -156,7 +156,7 @@ fun ProductCardSmall(
         ) {
             AsyncImage(
                 modifier = Modifier
-                    .aspectRatio(1f)
+                    .height(160.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .weight(1f),
                 model = image,
@@ -241,14 +241,14 @@ fun ProductCardWithRating(
 }
 
 @Composable
-fun ProductCardWithEntity(
+fun ProductCardWithQuantity(
     modifier: Modifier = Modifier,
     image: String,
     title: String,
     description: String,
     mainIngredient: String,
     price: Int,
-    entity: Int
+    quantity: Int
 ) {
     ProductCardSmall(
         modifier = modifier,
@@ -260,7 +260,7 @@ fun ProductCardWithEntity(
     ) {
         Text(
             textAlign = TextAlign.Center,
-            text = "$entity x",
+            text = "$quantity x",
             style = MaterialTheme.typography.bodyLarge
         )
     }
@@ -396,13 +396,13 @@ fun ProductCardWithRatingPreview() {
 @Composable
 fun ProductCardWithEntityPreview() {
     JamuInTheme {
-        ProductCardWithEntity(
+        ProductCardWithQuantity(
             image = "https://cataas.com/cat",
             title = "Jamu Beras Kencur",
             description = "Baik untuk ginjal. Murah loh!",
             mainIngredient = "Jahe",
             price = 30000,
-            entity = 2,
+            quantity = 2,
         )
     }
 }
@@ -459,7 +459,8 @@ fun ProductCardPreview() {
             price = 12000,
             mainIngredient = "Jahe",
             image = "",
-            description = "desc"
+            description = "desc",
+            seller = "Toko"
         )
     }
 }

@@ -32,5 +32,20 @@ data class CartsItem(
 	val productName: String,
 
 	@field:SerializedName("main_ingredient")
-	val mainIngredient: String
+	val mainIngredient: String,
+
+	@field:SerializedName("product_image")
+	val productImage: String
+)
+
+data class AddCartResponse(
+	@SerializedName("product_id")
+	val productId: Int,
+	@SerializedName("quantity")
+	val quantity: Int
+)
+
+data class DeleteCartResponse(
+	@SerializedName("message")
+	val message: String
 )

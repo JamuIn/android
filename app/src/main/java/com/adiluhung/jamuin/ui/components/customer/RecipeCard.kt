@@ -38,6 +38,7 @@ fun RecipeCard(
     id: Int,
     image: String,
     title: String,
+    mainIngredient: String? = null,
     description: String,
     navController: NavController
 ) {
@@ -68,6 +69,21 @@ fun RecipeCard(
             )
             Spacer(modifier = Modifier.width(15.dp))
             Column {
+                if (mainIngredient!= null) {
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface,
+                            contentColor = MaterialTheme.colorScheme.primary
+                        ), modifier = Modifier.padding(end = 4.dp)
+                    ) {
+                        Text(
+                            text = mainIngredient,
+                            style = MaterialTheme.typography.labelSmall,
+                            modifier = Modifier.padding(4.dp),
+                        )
+                    }
+                }
+
                 Text(
                     text = title,
                     overflow = TextOverflow.Ellipsis,
@@ -100,7 +116,8 @@ fun RecipeCardPreview() {
             image = "https://example.com/banner.jpg",
             title = "Jamu Kencur",
             description = "Jamu kencur adalah jamu yang terbuat dari kencur",
-            navController = navController
+            navController = navController,
+            mainIngredient = "Kencur"
         )
     }
 }

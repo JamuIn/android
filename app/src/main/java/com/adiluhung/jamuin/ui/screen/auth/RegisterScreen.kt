@@ -147,8 +147,6 @@ fun RegisterScreen(
             text = address,
             onTextChange = { address = it })
 
-        Spacer(modifier = Modifier.height(3.dp))
-
         Spacer(modifier = Modifier.height(15.dp))
         Text(
             text = stringResource(id = R.string.password),

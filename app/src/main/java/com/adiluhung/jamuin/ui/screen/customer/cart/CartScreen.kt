@@ -1,10 +1,17 @@
 package com.adiluhung.jamuin.ui.screen.customer.cart
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +25,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
+import com.adiluhung.jamuin.helper.titlecaseFirstChar
 import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.components.customer.BottomNavigationBar
 import com.adiluhung.jamuin.ui.components.customer.PrimaryButton
@@ -33,7 +41,15 @@ fun CartScreen(
         factory = ViewModelFactory(LocalContext.current)
     )
 ) {
+    val context = LocalContext.current
     val listItemCart = viewModel.listCartItem.observeAsState().value ?: emptyList()
+
+    var isInitialized by remember { mutableStateOf(false) }
+
+    if (!isInitialized) {
+        viewModel.getItemInUserCart()
+        isInitialized = true
+    }
 
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
@@ -75,13 +91,23 @@ fun CartScreen(
                     items(listItemCart.size) { index ->
                         ProductCardAtCart(
                             modifier = Modifier.fillMaxWidth(),
-                            image = "",
+                            image = listItemCart[index].productImage,
                             title = listItemCart[index].productName,
                             description = listItemCart[index].productDescription,
-                            mainIngredient = listItemCart[index].mainIngredient,
+                            mainIngredient = listItemCart[index].mainIngredient.titlecaseFirstChar(),
                             price = listItemCart[index].price,
                             quantity = listItemCart[index].quantity,
-                            onClickDeleteButton = {}
+                            onClickDeleteButton = {
+                                viewModel.deleteItemInCart(listItemCart[index].id)
+
+                                Toast.makeText(
+                                    context,
+                                    "Berhasil menghapus item dari keranjang",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                isInitialized = false
+                            },
                         )
                     }
                     item {
@@ -89,17 +115,15 @@ fun CartScreen(
                             modifier = Modifier.padding(top = 16.dp),
                             text = stringResource(id = R.string.checkout),
                             onClick = {
-                                navController.navigate(Routes.Checkout.routes) {
-                                    popUpTo(Routes.Home.routes) {
-                                        inclusive = true
-                                    }
-                                }
+                                navController.navigate(Routes.Checkout.routes)
                             }
                         )
                     }
                 }
             }
         }
+
+
     }
 }
 

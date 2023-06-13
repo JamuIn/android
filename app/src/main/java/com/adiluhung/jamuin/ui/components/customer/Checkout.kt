@@ -19,7 +19,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
+import com.adiluhung.jamuin.helper.toRupiah
 import com.adiluhung.jamuin.route.Routes
+import com.adiluhung.jamuin.ui.screen.customer.checkout.InvoiceItem
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
 import com.adiluhung.jamuin.ui.theme.RedFree
 import com.adiluhung.jamuin.ui.theme.SoftGray
@@ -102,7 +104,7 @@ fun PriceDetail() {
 }
 
 @Composable
-fun BottomCart() {
+fun BottomCart(listInvoiceItem: List<InvoiceItem>?, totalPrice: Int?) {
     Column(
         modifier = Modifier
             .background(color = Color.White)
@@ -116,20 +118,20 @@ fun BottomCart() {
         ) {
             Column(modifier = Modifier.padding(10.dp)) {
                 Spacer(modifier = Modifier.height(5.dp))
-                PriceDetailItem(
-                    label = stringResource(id = R.string.sub_total),
-                    value = "$100"
-                )
-                PriceDetailItem(
-                    label = stringResource(id = R.string.shipping),
-                    value = "$10",
-                    valueColor = RedFree
-                )
-                PriceDetailItem(
-                    label = stringResource(id = R.string.total),
-                    value = "$110",
-                    valueColor = Color.Green
-                )
+                listInvoiceItem?.map {
+                    PriceDetailItem(
+                        label = it.name,
+                        value = it.price.toRupiah()
+                    )
+                }
+
+                if (totalPrice != null) {
+                    PriceDetailItem(
+                        label = stringResource(id = R.string.total),
+                        value = totalPrice.toRupiah(),
+                        valueColor = MaterialTheme.colorScheme.tertiary
+                    )
+                }
             }
         }
     }
@@ -158,7 +160,7 @@ fun PriceDetailItem(
 }
 
 @Composable
-fun Address(navController: NavController) {
+fun Address(navController: NavController, address: String?) {
     Column(
         modifier = Modifier
             .background(color = Color.White)
@@ -172,29 +174,26 @@ fun Address(navController: NavController) {
             border = BorderStroke(2.dp, SolidColor(SoftGray))
         ) {
             Column(modifier = Modifier.padding(10.dp), verticalArrangement = Arrangement.Center) {
-                Text(
-                    text = stringResource(id = R.string.dummy_addres),
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
+                if (address != null) {
+                    Text(
+                        text = address,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(5.dp))
             SecondaryButton(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 text = stringResource(id = R.string.change_address),
                 onClick = {
-                    navController.navigate(Routes.AddressEdit.routes) {
-                        popUpTo(Routes.Home.routes) {
-                            inclusive = true
-                        }
-                    }
+                    navController.navigate(Routes.EditAddress.routes)
                 }
             )
             Spacer(modifier = Modifier.height(5.dp))
         }
     }
 }
-
 
 
 @Preview
@@ -233,7 +232,23 @@ fun PriceDetailPreview() {
 @Composable
 fun BottomCartPreview() {
     JamuInTheme {
-        BottomCart()
+        BottomCart(
+            listInvoiceItem = listOf(
+                InvoiceItem(
+                    name = "Jamu Beras Kencur",
+                    price = 10000,
+                ),
+                InvoiceItem(
+                    name = "Jamu Beras Kencur",
+                    price = 10000,
+                ),
+                InvoiceItem(
+                    name = "Jamu Beras Kencur",
+                    price = 10000,
+                )
+            ),
+            totalPrice = 30000
+        )
     }
 }
 
@@ -241,6 +256,6 @@ fun BottomCartPreview() {
 @Composable
 fun AddressPreview() {
     JamuInTheme {
-        Address(navController = rememberNavController())
+        Address(navController = rememberNavController(), address = "Bogor, Indonesia")
     }
 }

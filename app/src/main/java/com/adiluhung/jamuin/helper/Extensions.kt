@@ -18,3 +18,5 @@ fun Int.toRupiah(): String {
     df.decimalFormatSymbols = customSymbol
     return "Rp." + df.format(this)
 }
+
+fun String.titlecaseFirstChar() = replaceFirstChar(Char::titlecase)
