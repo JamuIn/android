@@ -23,9 +23,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -81,12 +84,17 @@ class CameraActivity : ComponentActivity() {
                 )
             }
             if (shouldShowPhoto.value) {
+                val isLoading = viewModel.isLoading.observeAsState().value
+
                 JamuInTheme {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(MaterialTheme.colorScheme.background)
                     ) {
+                        if (isLoading == true) {
+                            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                        }
                         Text(
                             text = "Hasil Scan",
                             modifier = Modifier
