@@ -2,12 +2,14 @@ package com.adiluhung.jamuin.ui.screen.customer.checkout
 
 import android.util.Log
 import androidx.compose.ui.input.key.Key.Companion.I
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.adiluhung.jamuin.data.local.UserPreferences
 import com.adiluhung.jamuin.data.network.responses.CartResponse
 import com.adiluhung.jamuin.data.network.responses.CartsItem
 import com.adiluhung.jamuin.data.network.responses.CheckoutResponse
+import com.adiluhung.jamuin.data.network.responses.CreateOrderResponse
 import com.adiluhung.jamuin.data.network.responses.UserResponse
 import com.adiluhung.jamuin.data.network.retrofit.ApiConfig
 import kotlinx.coroutines.flow.first
@@ -30,6 +32,12 @@ class CheckoutViewModel(private val pref: UserPreferences) : ViewModel() {
 
     private val _listCartItem = MutableLiveData<List<CartsItem>>()
     val listCartItem: MutableLiveData<List<CartsItem>> = _listCartItem
+
+    private val _message = MutableLiveData<String>()
+    val message: MutableLiveData<String> = _message
+
+    private val _orderId = MutableLiveData<Int>()
+    val orderId: LiveData<Int> = _orderId
 
     init {
         getItemInUserCart()
@@ -82,24 +90,25 @@ class CheckoutViewModel(private val pref: UserPreferences) : ViewModel() {
         }
     }
 
-    fun confirmCheckout() {
+    fun createOrder(totalPrice: Int, status: String) {
         _isLoading.value = true
-        if (token != null) {
-            val client = ApiConfig.getApiService().confirmCheckout("Bearer $token")
-            client.enqueue(object : Callback<CheckoutResponse> {
-                override fun onResponse(
-                    call: Call<CheckoutResponse>, response: Response<CheckoutResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        _isLoading.value = false
-                    }
-                }
-
-                override fun onFailure(call: Call<CheckoutResponse>, t: Throwable) {
+        val client = ApiConfig.getApiService().createOrder("Bearer $token", totalPrice, status)
+        client.enqueue(object : Callback<CreateOrderResponse> {
+            override fun onResponse(
+                call: Call<CreateOrderResponse>,
+                response: Response<CreateOrderResponse>
+            ) {
+                if (response.isSuccessful) {
                     _isLoading.value = false
-                    Log.e("HomeViewModel", "onFailure: ${t.message.toString()}")
+                    _message.value = "Lanjutkan ke pembayaran"
+                    _orderId.value = response.body()?.order?.id
                 }
-            })
-        }
+            }
+
+            override fun onFailure(call: Call<CreateOrderResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e("CheckoutViewModel", "onFailure: ${t.message.toString()}")
+            }
+        })
     }
 }

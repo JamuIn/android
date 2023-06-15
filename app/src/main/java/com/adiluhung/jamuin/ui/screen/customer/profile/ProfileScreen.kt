@@ -1,6 +1,5 @@
 package com.adiluhung.jamuin.ui.screen.customer.profile
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -76,7 +75,7 @@ fun ProfileScreen(
             ) {
                 TextButton(onClick = {
                     viewModel.logout()
-                    navController.navigate(Routes.Login.routes) {
+                    navController.navigate(Routes.Login.route) {
                         popUpTo(
                             navController.graph.startDestinationId
                         ) { inclusive = true }
@@ -194,8 +193,8 @@ fun Header(navController: NavController, user: UserResponse?) {
         PrimaryButton(
             text = stringResource(id = R.string.edit_profile),
             onClick = {
-                navController.navigate(Routes.EditProfile.routes) {
-                    popUpTo(Routes.Profile.routes) { inclusive = true }
+                navController.navigate(Routes.EditProfile.route) {
+                    popUpTo(Routes.Profile.route) { inclusive = true }
                 }
             }
         )
@@ -237,7 +236,7 @@ fun BodyProfile(navController: NavController) {
             ProfileItem.data.forEach { item ->
                 ItemMenuProfile(icon = item.Icon, label = item.Label, onClick = {
                     navController.navigate(item.Route) {
-                        popUpTo(Routes.Profile.routes) { inclusive = true }
+                        popUpTo(Routes.Profile.route) { inclusive = true }
                     }
                 })
             }

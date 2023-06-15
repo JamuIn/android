@@ -63,8 +63,8 @@ fun RecipeCard(
                 contentDescription = title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .width(64.dp)
-                    .height(64.dp)
+                    .width(84.dp)
+                    .height(84.dp)
                     .clip(shape = RoundedCornerShape(12.dp))
             )
             Spacer(modifier = Modifier.width(15.dp))

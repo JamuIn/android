@@ -1,6 +1,6 @@
 package com.adiluhung.jamuin.route
 
-sealed class Routes(val routes: String) {
+sealed class Routes(val route: String) {
     object Register : Routes("register")
     object Role : Routes("role")
     object Login : Routes("login")
@@ -20,11 +20,14 @@ sealed class Routes(val routes: String) {
     object DetailProduct : Routes("detail_product/{id}") {
         fun createRoute(id: Int) = "detail_product/$id"
     }
+
     object Favorite : Routes("favorite")
 
-    //    object Detail : Routes("detail/{id}") {
-    //        fun createRoute(id: Int) = "detail/$id"
-    //    }
+    object ScanResult : Routes("scan_result")
+    object Payment : Routes("payment/{orderId}/{paymentMethodId}/{totalPrice}") {
+        fun createRoute(orderId: Int, paymentMethodId: Int, totalPrice: Int) =
+            "payment/$orderId/$paymentMethodId/$totalPrice"
+    }
 
     // Seller
     object SellerHome : Routes("seller_home")

@@ -5,6 +5,7 @@ import com.adiluhung.jamuin.data.network.responses.AddFavoriteResponse
 import com.adiluhung.jamuin.data.network.responses.AddJamuResponse
 import com.adiluhung.jamuin.data.network.responses.CartResponse
 import com.adiluhung.jamuin.data.network.responses.CheckoutResponse
+import com.adiluhung.jamuin.data.network.responses.CreateOrderResponse
 import com.adiluhung.jamuin.data.network.responses.DeleteCartResponse
 import com.adiluhung.jamuin.data.network.responses.DetailIngredientResponse
 import com.adiluhung.jamuin.data.network.responses.DetailJamuResponse
@@ -16,7 +17,6 @@ import com.adiluhung.jamuin.data.network.responses.JamuResponse
 import com.adiluhung.jamuin.data.network.responses.LoginResponse
 import com.adiluhung.jamuin.data.network.responses.LogoutResponse
 import com.adiluhung.jamuin.data.network.responses.ProductResponse
-import com.adiluhung.jamuin.data.network.responses.ProductsItem
 import com.adiluhung.jamuin.data.network.responses.RegisterResponse
 import com.adiluhung.jamuin.data.network.responses.StoreResponse
 import com.adiluhung.jamuin.data.network.responses.UpdateJamuResponse
@@ -51,6 +51,7 @@ interface ApiService {
         // JAMU
         const val GET_JAMU = "jamu"
         const val GET_DETAIL_JAMU = "jamu/{id}"
+        const val GET_JAMU_BY_INGREDIENT = "jamu"
         const val POST_JAMU = "jamu"
         const val UPDATE_JAMU = "jamu/{id}"
         const val DELETE_JAMU = "jamu/{id}"
@@ -79,7 +80,9 @@ interface ApiService {
         const val DELETE_USER_CART = "carts/{id}"
 
         // TRANSACTION
-        const val CONFIRM_CHECKOUT = "confirm-checkout"
+        const val CONFIRM_CHECKOUT = "checkout"
+        const val CREATE_ORDER = "orders"
+        const val UPDATE_ORDER = "orders/{id}"
     }
 
     /**
@@ -174,6 +177,12 @@ interface ApiService {
     fun getDetailJamu(
         @Path("id") id: Int
     ): Call<DetailJamuResponse>
+
+    @GET(EndPoints.GET_JAMU_BY_INGREDIENT)
+    @Headers("Accept: application/json")
+    fun getJamuByIngredient(
+        @Query("ingredient") ingredient: Int
+    ): Call<JamuResponse>
 
     @POST(EndPoints.POST_JAMU)
     @Headers("Accept: application/json")
@@ -307,8 +316,27 @@ interface ApiService {
     /**
      * TRANSACTION
      * */
-    @GET(EndPoints.CONFIRM_CHECKOUT)
-    fun confirmCheckout(
+    @POST(EndPoints.CONFIRM_CHECKOUT)
+    fun checkoutOrder(
         @Header("Authorization") token: String,
+        @Query("payment_address") paymentAddress: String
     ): Call<CheckoutResponse>
+
+    @POST(EndPoints.CREATE_ORDER)
+    @Headers("Accept: application/json")
+    fun createOrder(
+        @Header("Authorization") token: String,
+        @Query("total_price") totalPrice: Int,
+        @Query("status") status: String,
+    ): Call<CreateOrderResponse>
+
+    @POST(EndPoints.UPDATE_ORDER)
+    @Headers("Accept: application/json")
+    fun updateOrder(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int,
+        @Query("total_price") totalPrice: Int,
+        @Query("status") status: String,
+    ) : Call<CreateOrderResponse>
+
 }

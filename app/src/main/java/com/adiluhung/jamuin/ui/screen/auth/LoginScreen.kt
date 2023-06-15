@@ -77,12 +77,12 @@ fun LoginScreen(
                 isLoading = false
 
                 if(uiState.data == "customer"){
-                    navController.navigate(Routes.Home.routes) {
-                        popUpTo(Routes.Login.routes) { inclusive = true }
+                    navController.navigate(Routes.Home.route) {
+                        popUpTo(Routes.Login.route) { inclusive = true }
                     }
                 } else if(uiState.data == "seller"){
-                    navController.navigate(Routes.SellerHome.routes) {
-                        popUpTo(Routes.Login.routes) { inclusive = true }
+                    navController.navigate(Routes.SellerHome.route) {
+                        popUpTo(Routes.Login.route) { inclusive = true }
                     }
                 }else{
                     Toast.makeText(context, "Unknown user type", Toast.LENGTH_SHORT).show()
@@ -172,8 +172,8 @@ fun LoginScreen(
             )
             Spacer(modifier = Modifier.width(5.dp))
             TextButton(onClick = {
-                navController.navigate(Routes.Register.routes) {
-                    popUpTo(Routes.Login.routes) {
+                navController.navigate(Routes.Register.route) {
+                    popUpTo(Routes.Login.route) {
                         inclusive = true
                     }
                 }

@@ -1,6 +1,8 @@
 package com.adiluhung.jamuin.ui.screen.customer.checkout
 
+import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -31,6 +34,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.adiluhung.jamuin.R
+import com.adiluhung.jamuin.data.sources.PaymentMethod
+import com.adiluhung.jamuin.data.sources.PaymentMethodModel
 import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.components.*
 import com.adiluhung.jamuin.ui.components.customer.AccordionPreview
@@ -51,6 +56,7 @@ data class InvoiceItem(
     val price: Int,
 )
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CheckoutScreen(
@@ -61,6 +67,7 @@ fun CheckoutScreen(
         )
     )
 ) {
+    val context = LocalContext.current
     val listCart = viewModel.listCartItem.observeAsState().value
     val user = viewModel.user.observeAsState().value
 
@@ -75,8 +82,19 @@ fun CheckoutScreen(
         cart.price
     }
 
-    var paymentMethod by remember { mutableStateOf("") }
+    var paymentMethod by remember { mutableIntStateOf(0) }
 
+    val orderId = viewModel.orderId.observeAsState().value
+
+    if (orderId != null && totalPrice != null) {
+        navController.navigate(
+            Routes.Payment.createRoute(
+                orderId = orderId,
+                paymentMethodId = paymentMethod - 1,
+                totalPrice = totalPrice
+            )
+        )
+    }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -159,7 +177,6 @@ fun CheckoutScreen(
                             )
                             PaymentMethodDropDown(onChange = {
                                 paymentMethod = it
-                                Log.d("PaymentMethod", paymentMethod)
                             })
                         }
                     }
@@ -168,10 +185,16 @@ fun CheckoutScreen(
                     modifier = Modifier.align(Alignment.BottomCenter),
                     text = stringResource(id = R.string.payment),
                     onClick = {
-                        navController.navigate(Routes.Checkout.routes) {
-                            popUpTo(Routes.Home.routes) {
-                                inclusive = true
+                        if (paymentMethod != 0) {
+                            if (totalPrice != null) {
+                                viewModel.createOrder(totalPrice, "unpaid")
                             }
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "Pilih metode pembayaran terlebih dahulu!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 )

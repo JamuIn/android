@@ -10,7 +10,7 @@ object ProfileItem {
             Id = 2,
             Icon = R.drawable.love,
             Label = "Favorit",
-            Route = Routes.Favorite.routes
+            Route = Routes.Favorite.route
         ),
         ProfileItemModel(
             Id = 3,

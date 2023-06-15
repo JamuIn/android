@@ -73,7 +73,7 @@ fun RegisterScreen(
                 isLoading = false
                 LaunchedEffect(uiState.data) {
                     Toast.makeText(context, uiState.data, Toast.LENGTH_SHORT).show()
-                    navController.navigate(Routes.Login.routes)
+                    navController.navigate(Routes.Login.route)
                 }
             }
 
@@ -183,7 +183,7 @@ fun RegisterScreen(
             navController.currentBackStackEntry?.savedStateHandle?.apply {
                 set("registerData", data)
             }
-            navController.navigate(Routes.Role.routes)
+            navController.navigate(Routes.Role.route)
         })
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -202,8 +202,8 @@ fun RegisterScreen(
             )
             Spacer(modifier = Modifier.width(5.dp))
             TextButton(onClick = {
-                navController.navigate(Routes.Login.routes) {
-                    popUpTo(Routes.Register.routes) {
+                navController.navigate(Routes.Login.route) {
+                    popUpTo(Routes.Register.route) {
                         inclusive = true
                     }
                 }

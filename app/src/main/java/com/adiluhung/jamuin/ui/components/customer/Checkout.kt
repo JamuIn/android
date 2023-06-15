@@ -23,7 +23,6 @@ import com.adiluhung.jamuin.helper.toRupiah
 import com.adiluhung.jamuin.route.Routes
 import com.adiluhung.jamuin.ui.screen.customer.checkout.InvoiceItem
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
-import com.adiluhung.jamuin.ui.theme.RedFree
 import com.adiluhung.jamuin.ui.theme.SoftGray
 
 
@@ -187,7 +186,7 @@ fun Address(navController: NavController, address: String?) {
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 text = stringResource(id = R.string.change_address),
                 onClick = {
-                    navController.navigate(Routes.EditAddress.routes)
+                    navController.navigate(Routes.EditAddress.route)
                 }
             )
             Spacer(modifier = Modifier.height(5.dp))

@@ -2,4 +2,11 @@
 <resources>
 
     <style name="Theme.JamuIn" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.JamuIn.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+        <item name="windowSplashScreenBackground">@color/blue_primary</item>
+        <item name="postSplashScreenTheme">@style/Theme.JamuIn</item>
+    </style>
+
 </resources>

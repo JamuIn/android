@@ -109,7 +109,7 @@ fun SellerCard(navController: NavController, seller: String) {
                 Spacer(modifier = Modifier.weight(1f))
                 FilledIconButton(
                     onClick = {
-                        navController.navigate(Routes.Chat.routes)
+                        navController.navigate(Routes.Chat.route)
                     },
                     colors = IconButtonDefaults.filledIconButtonColors(containerColor = Color.Transparent)
                 ) {

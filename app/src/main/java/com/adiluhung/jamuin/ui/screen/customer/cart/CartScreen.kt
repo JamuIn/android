@@ -1,12 +1,10 @@
 package com.adiluhung.jamuin.ui.screen.customer.cart
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -115,7 +113,7 @@ fun CartScreen(
                             modifier = Modifier.padding(top = 16.dp),
                             text = stringResource(id = R.string.checkout),
                             onClick = {
-                                navController.navigate(Routes.Checkout.routes)
+                                navController.navigate(Routes.Checkout.route)
                             }
                         )
                     }

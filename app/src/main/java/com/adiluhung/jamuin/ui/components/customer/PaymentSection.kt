@@ -1,8 +1,12 @@
 package com.adiluhung.jamuin.ui.components.customer
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,18 +15,25 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.adiluhung.jamuin.R
+import com.adiluhung.jamuin.data.sources.PaymentMethod
+import com.adiluhung.jamuin.helper.ComposeFileProvider
 import com.adiluhung.jamuin.helper.toRupiah
 import com.adiluhung.jamuin.ui.theme.JamuInTheme
 import com.adiluhung.jamuin.ui.theme.NewGreen
@@ -86,8 +97,9 @@ fun PaymentProve() {
 }
 
 @Composable
-fun PaymentMethodCard() {
-    val interactionSource = remember { MutableInteractionSource() }
+fun PaymentMethodCard(paymentMethodId: Int) {
+    val paymentMethod = PaymentMethod.data[paymentMethodId]
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -97,8 +109,8 @@ fun PaymentMethodCard() {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
-            painter = painterResource(id = R.drawable.gopay_logo),
-            contentDescription = "GoPay Logo",
+            painter = painterResource(id = paymentMethod.imageResId),
+            contentDescription = "Payment method logo",
             modifier = Modifier
                 .padding(start = 16.dp, top = 16.dp, bottom = 16.dp)
                 .size(60.dp)
@@ -110,11 +122,11 @@ fun PaymentMethodCard() {
                 modifier = Modifier
             ) {
                 Text(
-                    text = "Metode Gopay",
+                    text = "Metode ${paymentMethod.title}",
                     style = MaterialTheme.typography.bodyMedium.copy()
                 )
                 Text(
-                    text = "0881 2345 6789",
+                    text = paymentMethod.accoutNumber,
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
@@ -127,7 +139,6 @@ fun PaymentMethodCard() {
 
 @Composable
 fun PaymentPriceCard(price: Int) {
-    val interactionSource = remember { MutableInteractionSource() }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -149,40 +160,70 @@ fun PaymentPriceCard(price: Int) {
 
 @Composable
 fun ImagePayment() {
+    val context = LocalContext.current
+
+    var hasImage by remember {
+        mutableStateOf(false)
+    }
+
+    var imageUri by remember {
+        mutableStateOf<Uri?>(null)
+    }
+
+    val cameraLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicture(),
+        onResult = { success ->
+            hasImage = success
+        }
+    )
+
     Card(
         modifier = Modifier
-            .padding(16.dp)
             .background(color = Color.White)
             .fillMaxWidth()
-            .clip(RoundedCornerShape(18.dp)),
+            .clip(RoundedCornerShape(18.dp))
+            .clickable {
+                val uri = ComposeFileProvider.getImageUri(context)
+                imageUri = uri
+                cameraLauncher.launch(uri)
+            },
         border = BorderStroke(2.dp, SolidColor(SoftGray)),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-
-        //elevation = 4.dp
     ) {
         Column(
             modifier = Modifier
-                //.padding(start = 20.dp)
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.add),
-                contentDescription = "Add image",
-                modifier = Modifier
-                    .size(80.dp)
-                    .padding(top = 20.dp)
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Unggah Bukti",
-                style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .wrapContentSize()
-                    .padding(bottom = 20.dp)
-            )
+            // 4
+            if (hasImage && imageUri != null) {
+                // 5
+                AsyncImage(
+                    model = imageUri,
+                    modifier = Modifier.fillMaxWidth(),
+                    contentDescription = "Selected image",
+                )
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.add),
+                    contentDescription = "Add image",
+                    modifier = Modifier
+                        .size(80.dp)
+                        .padding(top = 20.dp)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Unggah Bukti",
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(bottom = 20.dp)
+                )
+            }
+
+
         }
     }
 }
@@ -216,7 +257,7 @@ fun PaymentProvePreview() {
 @Composable
 fun PaymentMethodCardPreview() {
     JamuInTheme() {
-        PaymentMethodCard()
+        PaymentMethodCard(1)
     }
 }
 

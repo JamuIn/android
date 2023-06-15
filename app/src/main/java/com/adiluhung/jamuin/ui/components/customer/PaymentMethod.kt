@@ -38,7 +38,7 @@ import com.adiluhung.jamuin.ui.theme.JamuInTheme
 @Composable
 fun PaymentMethodDropDown(
     modifier: Modifier = Modifier,
-    onChange: (String) -> Unit
+    onChange: (Int) -> Unit
 ) {
     var selectedPaymentMethod by remember { mutableIntStateOf(0) }
     var expanded by remember { mutableStateOf(false) }
@@ -120,7 +120,7 @@ fun PaymentMethodDropDown(
                             .clickable {
                                 selectedPaymentMethod = index + 1
                                 expanded = false
-                                onChange("${paymentMethod.title}, ${paymentMethod.accoutNumber}")
+                                onChange(paymentMethod.id)
                             },
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {

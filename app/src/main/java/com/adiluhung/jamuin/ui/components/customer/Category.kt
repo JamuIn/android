@@ -49,7 +49,9 @@ import com.adiluhung.jamuin.ui.theme.RedFree
 import com.adiluhung.jamuin.ui.theme.SoftGray
 
 @Composable
-fun TopProductCategory() {
+fun TopProductCategory(
+    isWithOther: Boolean = true,
+) {
     Column {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -62,26 +64,29 @@ fun TopProductCategory() {
                     fontWeight = FontWeight.Bold
                 )
             )
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = "Lainnya", style = MaterialTheme.typography.bodySmall.copy(
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 12.sp
+            if(isWithOther){
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "Lainnya", style = MaterialTheme.typography.bodySmall.copy(
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 12.sp
+                        )
                     )
-                )
-                Icon(
-                    modifier = Modifier.size(12.dp),
-                    imageVector = Icons.Default.ArrowForwardIos,
-                    contentDescription = "Lainnya"
-                )
+                    Icon(
+                        modifier = Modifier.size(12.dp),
+                        imageVector = Icons.Default.ArrowForwardIos,
+                        contentDescription = "Lainnya"
+                    )
+                }
             }
+
         }
         Spacer(modifier = Modifier.height(6.dp))
     }
 }
 
 @Composable
-fun RecipeArticleCategory() {
+fun RecipeArticleCategory(isWithOther: Boolean = true) {
     Column {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -94,18 +99,20 @@ fun RecipeArticleCategory() {
                     fontWeight = FontWeight.Bold
                 )
             )
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = "Lainnya", style = MaterialTheme.typography.bodySmall.copy(
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 12.sp
+            if (isWithOther) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "Lainnya", style = MaterialTheme.typography.bodySmall.copy(
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 12.sp
+                        )
                     )
-                )
-                Icon(
-                    modifier = Modifier.size(12.dp),
-                    imageVector = Icons.Default.ArrowForwardIos,
-                    contentDescription = "Lainnya"
-                )
+                    Icon(
+                        modifier = Modifier.size(12.dp),
+                        imageVector = Icons.Default.ArrowForwardIos,
+                        contentDescription = "Lainnya"
+                    )
+                }
             }
         }
         Spacer(modifier = Modifier.height(6.dp))

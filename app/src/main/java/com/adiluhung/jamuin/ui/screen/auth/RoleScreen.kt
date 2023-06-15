@@ -68,7 +68,7 @@ fun RoleScreen(
                 isLoading = false
                 LaunchedEffect(uiState.data) {
                     Toast.makeText(context, "Register berhasil", Toast.LENGTH_SHORT).show()
-                    navController.navigate(Routes.Login.routes)
+                    navController.navigate(Routes.Login.route)
                 }
             }
 

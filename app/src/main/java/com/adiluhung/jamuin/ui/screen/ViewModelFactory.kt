@@ -14,6 +14,7 @@ import com.adiluhung.jamuin.ui.screen.customer.editAddress.EditAddressViewModel
 import com.adiluhung.jamuin.ui.screen.customer.editProfile.EditProfileViewModel
 import com.adiluhung.jamuin.ui.screen.customer.favorite.FavoriteViewModel
 import com.adiluhung.jamuin.ui.screen.customer.home.HomeViewModel
+import com.adiluhung.jamuin.ui.screen.customer.payment.PaymentViewModel
 import com.adiluhung.jamuin.ui.screen.customer.profile.ProfileViewModel
 
 class ViewModelFactory(private val context: Context) : ViewModelProvider.NewInstanceFactory() {
@@ -52,6 +53,9 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.NewInst
         }
         if(modelClass.isAssignableFrom(EditAddressViewModel::class.java)) {
             return EditAddressViewModel(Injection.provideUserPreference(context)) as T
+        }
+        if(modelClass.isAssignableFrom(PaymentViewModel::class.java)) {
+            return PaymentViewModel(Injection.provideUserPreference(context)) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
