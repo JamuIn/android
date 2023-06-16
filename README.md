@@ -3,7 +3,7 @@
 The source code for the Jamuin Android app, written in Kotlin, was created to complete the Bangkit Capstone Project
 
 - ### Architecture for this project
-![Android Architecture](https://github.com/JamuIn/android/assets/72461302/f3668a9c-f862-4898-9082-896c056655c6)
+![Android Architecture](https://github.com/JamuIn/android/assets/72461302/d4346a8c-09df-4a49-91bf-985b19f02050)
 
 - ### Features
 
